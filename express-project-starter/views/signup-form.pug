@@ -1,0 +1,11 @@
+extends layout
+
+include utils.pug
+
+block content
+    form(action="/signup", method="post")
+        +field('Username: ', 'username')
+        +field('Email: ', 'email')
+        +field('Password: ', 'password')
+        +field('Confirm Password: ', 'confirm password')
+        button submit 
