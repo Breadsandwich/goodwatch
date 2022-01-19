@@ -44,8 +44,6 @@ const userVal = [
             }
             return true;
         })
-
-
 ];
 
 const loginValidators = [
@@ -100,7 +98,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
   const user = await User.build({
     username,
     email,
-    
+
   });
   const validatorError = validationResult(req);
   if(validatorError.isEmpty()){
@@ -119,6 +117,6 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
             });
 
   }
-  
+
 }));
 module.exports = router;
