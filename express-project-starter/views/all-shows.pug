@@ -1,0 +1,22 @@
+extends layout.pug 
+
+block content 
+        a(href='/shows/add') Add a Show 
+        table 
+            thead 
+                tr 
+                    th Name 
+                    th Description 
+                    th Overall Rating 
+                    th Watch Status 
+                    th Genre 
+            tbody 
+                each show in shows 
+                    tr 
+                        td= show.name 
+                        td= show.description 
+                        td= show.overallRating 
+                        td= show.watchStatus 
+                        td= show.genre 
+
+                    
