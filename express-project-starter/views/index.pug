@@ -8,9 +8,13 @@ append head
 
 block content
   h1= title
+  if user
+    h2= `hello ${user.username}`
   div
     nav
       a(href='/users/login') login
       a(href='/users/signup') sign up
-      a(href='/users/logout') log out
-      button demo
+      form(action="/users/logout", method="post")
+        button logout
+      form(action="/users/login/demo", method="post")
+        button demo

@@ -83,6 +83,14 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
   }
 }))
 
+router.post('/login/demo', (async(req, res) => {
+  const user = await User.findByPk(1);
+  
+  loginUser(req, res, user);
+  console.log(req.session.auth)
+  res.render('index', { user, title: 'goodwatch' })
+}));
+
 
 router.get('/signup', csrfProtection, (req, res) => {
   res.render('signup-form', {
@@ -119,4 +127,10 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
   }
 
 }));
+
+router.post('/logout', (req, res) => {
+  logoutUser(req, res);
+  console.log(req.session.auth)
+  res.redirect('/');
+})
 module.exports = router;
