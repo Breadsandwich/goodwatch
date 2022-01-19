@@ -1,4 +1,11 @@
 extends layout
 
-form(action="/users/login", method="post")
-    input(type="hidden", name="crs")
+include utils.pug
+
+block content
+    +validationErrorSummary(errors)
+    form(action="/users/login", method="post")
+        input(type="hidden", name="_csrf", value=csrfToken)
+        +field('Email: ', 'email')
+        +field('Password: ', 'password')
+        button Login

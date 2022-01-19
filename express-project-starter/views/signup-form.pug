@@ -3,9 +3,11 @@ extends layout
 include utils.pug
 
 block content
-    form(action="/signup", method="post")
+    +validationErrorSummary(errors)
+    form(action="/users/signup", method="post")
+        input(type="hidden", name="_csrf", value=csrfToken)
         +field('Username: ', 'username')
         +field('Email: ', 'email')
         +field('Password: ', 'password')
-        +field('Confirm Password: ', 'confirm password')
+        +field('Confirm Password: ', 'confirmPassword')
         button submit 
