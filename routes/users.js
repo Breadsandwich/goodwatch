@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser } = require('../auth.js')
+const { loginUser, logoutUser } = require('../express-project-starter/auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
@@ -85,7 +85,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
 
 router.post('/login/demo', (async(req, res) => {
   const user = await User.findByPk(1);
-  
+
   loginUser(req, res, user);
   console.log(req.session.auth)
   res.render('index', { user, title: 'goodwatch' })
