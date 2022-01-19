@@ -8,9 +8,9 @@ module.exports = {
 
       Example:
       */
-   return queryInterface.bulkInsert('Shows', [
-     {id: 1, name: 'John Doe', description: 'some text', overallRating: 5.00, watchStatus: 'wants to watch', genre: 'example fantasy', createdAt: new Date(), updatedAt: new Date() },
-  ], {});
+   return queryInterface.bulkInsert('Reviews', [
+     { userId: 1, showId: 1, review: 'some short review', rating: 5, createdAt: new Date(), updatedAt: new Date()}
+   ], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -20,6 +20,6 @@ module.exports = {
 
       Example:
       */
-   return queryInterface.bulkDelete('Shows', null, {});
+   return queryInterface.bulkDelete('Reviews', null, {});
   }
 };
