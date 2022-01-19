@@ -69,4 +69,14 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
     }
 
 }));
+
+router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
+    const showId = parseInt(req.params.id, 10);
+    const show = await Show.findByPk(showId);
+
+    res.render('single-show',{
+        title: 'Show',
+        show
+    });
+}));
 module.exports = router
