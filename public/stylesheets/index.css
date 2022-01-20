@@ -2,6 +2,15 @@ h1 {
     color: #555555;
 }
 
-.user-shows{
-    
+.shows{
+    display: flex;
+    flex-direction: column;
+    color: red;
+    border: 2px solid yellow;
+
+}
+
+.nav-bar{
+    display: flex;
+    flex-direction: column;
 }
