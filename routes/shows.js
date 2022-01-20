@@ -91,6 +91,20 @@ router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) =>
     res.render('reviews')
 
 }));
+router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
+    console.log('------')
+    const { review, overallRating } = req.body
+    const showId = parseInt(req.params.id, 10);
+
+    const reviewPost = await Review.build({
+        review,
+        overallRating
+    })
+    console.log(showId)
+    await reviewPost.save()
+    res.redirect(`/shows/${showId}`)
+
+}));
 
 
 module.exports = router
