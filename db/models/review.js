@@ -7,9 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.NUMERIC
   }, {});
   Review.associate = function(models) {
+    // Column mapping
+
     // associations can be defined here
-    Review.belongsTo(models.User, { foreignKey: 'userId' })
-    Review.belongsTo(models.Show, { foreignKey: 'showId' })
+    Review.belongsTo(models.User, { foreignKey: 'userId' });
+    Review.belongsTo(models.Show, { foreignKey: 'showId' });
   };
   return Review;
 };
