@@ -9,7 +9,10 @@ block content
         +field('Name', 'name')
         +field('Description', 'description', null , 'textarea')
         +field('Overall Rating', 'overallRating')
-        +field('Watch Status', 'watchStatus')
+        label(for="watchStatus") Watch Status: 
+        select(name="watchStatus")
+            each val in ['Has Watched', 'Wants to Watch', 'Currently Watching'] 
+                option(value=val) #{val}
         +field('Genre', 'genre')
         button Add Show 
         a(href='/') Cancel 

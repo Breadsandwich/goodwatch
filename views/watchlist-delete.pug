@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h2= watchlist.name
+    p= "Are you sure you want to delete?"
+    form(action=`/watchlists/${watchlistId}/delete` method="post")
+        button yes
+    form(action=`/watchlists/${watchlistId}` method="get")
+        button no
