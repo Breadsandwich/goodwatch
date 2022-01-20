@@ -5,7 +5,7 @@ const { loginUser, logoutUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const { User } = db;
+const { User, Show, Watchlist} = db;
 
 const router = express.Router();
 
@@ -55,6 +55,15 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
+router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
+  const person = req.session.auth;
+  const key = person.userId
+  const user = await User.findByPk(key,{
+    include: [Show, Watchlist]
+  })
+  console.log(user);
+  res.render('user-page', {user})
+}));
 
 /* GET users listing. */
 router.get('/login', csrfProtection, (req, res) => {
@@ -77,18 +86,19 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
       if(match){
         loginUser(req,res,user)
-        return res.redirect('/');
+        return res.redirect('/users/:id(\\d+)');
       }
     }
   }
 }))
 
-router.post('/login/demo', (async(req, res) => {
-  const user = await User.findByPk(1);
-
+router.post('/:id(\\d+)', (async(req, res) => {
+  const user = await User.findByPk(1,{
+    include: [Show, Watchlist]
+  })
   loginUser(req, res, user);
-  console.log(req.session.auth)
-  res.render('index', { user, title: 'goodwatch' })
+  console.log(user);
+  res.render('user-page', {user})
 }));
 
 
@@ -114,7 +124,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
     user.hashedPassword = hashPassword;
     await user.save();
     loginUser(req,res,user);
-    return res.redirect('/');
+    return res.redirect('/users/:id(\\d+)');
   }else{
     const errors = validatorError.array().map((error) => error.msg);
             res.render('signup-form', {
