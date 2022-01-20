@@ -61,7 +61,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
         const errors = validatorErrors.array().map((error)=>error.msg)
         res.render('show-add', {
             title: 'Add Show',
-            show, 
+            show,
             errors,
             csrfToken: req.csrfToken()
         });
@@ -78,4 +78,16 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
         show
     });
 }));
+
+router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
+    res.render('reviews')
+
+}));
+
 module.exports = router
+
+
+// router.get('/', requireAuth, asyncHandler(async (req, res) => {
+//     const books = await db.Book.findAll({ where: { userId: res.locals.user.id }, order: [['title', 'ASC']] });
+//     res.render('book-list', { title: 'Books', books });
+//   }));

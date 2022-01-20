@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'showId'
      }
 
-    Show.hasMany(models.Review, { foreignKey: 'reviewId' });
+    Show.hasMany(models.Review, { foreignKey: 'showId' });
     Show.belongsToMany(models.User, columnMapping)
     Show.hasMany(models.Watchlist, { foreignKey: 'showId' })
   };

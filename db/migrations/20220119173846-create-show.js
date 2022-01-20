@@ -15,7 +15,7 @@ module.exports = {
       },
       description: {
         allowNull: false,
-        type: Sequelize.STRING(500)
+        type: Sequelize.STRING(5000)
       },
       overallRating: {
         type: Sequelize.NUMERIC(3, 2)
