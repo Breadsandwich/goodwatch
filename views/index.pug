@@ -7,18 +7,19 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h1= title
-  if user
-    h2= `hello ${user.username}`
-  div.nav-bar
-    nav
-      a(href='/users/login') login
-      a(href='/users/signup') sign up
-      if user
-        form(action="/users/logout", method="post")
-          button logout
-      form(action="/users/demo", method="post")
-        button demo
+  div.main
+    h1= title|| 'GoodWatch'
+    if user
+      h1= `hello ${user.username}`
+    span.nav-bar
+      nav
+        a(href='/users/login') Log-in
+        a(href='/users/signup') Sign up
+        if user
+          form(action="/users/logout", method="post")
+            button logout
+        form(action="/users/1", method="post")
+          button demo
   block page
     h1= 'Drama'
     for show in showsDrama 

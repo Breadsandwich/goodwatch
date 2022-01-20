@@ -30,7 +30,7 @@ router.get('/', asyncHandler(async(req, res, next)=> {
       genre: 'Action'
     }
   })
-  res.render('index', { title: 'goodwatch skeleton home' , showsDrama, showsSciFi, showsFood, showsAction});
+  res.render('index', { title: 'Welcome to Goodwatch' , showsDrama, showsSciFi, showsFood, showsAction});
 }));
 
 module.exports = router;

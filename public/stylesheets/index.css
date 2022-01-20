@@ -7,10 +7,21 @@ h1 {
     flex-direction: column;
     color: red;
     border: 2px solid yellow;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    padding: 5px;
 
 }
 
 .nav-bar{
     display: flex;
-    flex-direction: column;
+    padding: 5px;
+}
+
+a{
+    padding: 2px;
+
+}
+.main{
+    display: flex;
+    justify-content: space-between;
 }

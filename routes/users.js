@@ -55,7 +55,7 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
-router.get('/:Id(\\d+)', asyncHandler(async(req, res)=>{
+router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
   const person = req.session.auth;
   const key = person.userId
   const user = await User.findByPk(key,{
@@ -86,13 +86,13 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
       if(match){
         loginUser(req,res,user)
-        return res.redirect('/users/:Id(\\d+)');
+        return res.redirect('/users/:id(\\d+)');
       }
     }
   }
 }))
 
-router.post('/demo', (async(req, res) => {
+router.post('/:id(\\d+)', (async(req, res) => {
   const user = await User.findByPk(1,{
     include: [Show, Watchlist]
   })
@@ -124,7 +124,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
     user.hashedPassword = hashPassword;
     await user.save();
     loginUser(req,res,user);
-    return res.redirect('/users/:Id(\\d+)');
+    return res.redirect('/users/:id(\\d+)');
   }else{
     const errors = validatorError.array().map((error) => error.msg);
             res.render('signup-form', {
