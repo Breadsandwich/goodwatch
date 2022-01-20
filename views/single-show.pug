@@ -1,0 +1,17 @@
+extends layout.pug 
+
+include utils.pug 
+
+block content 
+    table 
+            thead 
+                tr 
+                    th Name 
+                    th Description 
+                    th Overall Rating 
+                    th Watch Status 
+                    th Genre 
+            tbody 
+                +showTable(show)
+                a(href='/shows/all') Back to Shows
+                

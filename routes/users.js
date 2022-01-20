@@ -102,7 +102,7 @@ router.get('/signup', csrfProtection, (req, res) => {
 router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => {
   const {username, email, password} = req.body;
 
-  console.log('----------- Hello');
+  // console.log('----------- Hello');
   const user = await User.build({
     username,
     email,
