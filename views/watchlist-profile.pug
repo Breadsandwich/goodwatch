@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    h2= watchlist.name
+    form(action=`/watchlists/${watchlistId}/edit` method="get")
+        button edit
+    form(action=`/watchlists/${watchlistId}/delete` method="get")
+        button delete
