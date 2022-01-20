@@ -11,3 +11,12 @@ mixin field (labelText, fieldName, fieldValue, fieldType = 'text')
   div(class='form-group')
     label(for=fieldName)= labelText
     input(type='text' id=fieldName name=fieldName value=fieldValue class='form-control')
+
+
+mixin showTable(show)
+  tr 
+    td= show.name 
+    td= show.description 
+    td= show.overallRating 
+    td= show.watchStatus 
+    td= show.genre 
