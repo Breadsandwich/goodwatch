@@ -1,0 +1,15 @@
+extends layout.pug 
+
+include utils.pug 
+
+block content 
+    +validationErrorSummary(errors)
+    form(action="/shows/add", method="post")
+        input(type="hidden", name="_csrf", value=csrfToken)
+        +field('Name', 'name')
+        +field('Description', 'description', null , 'textarea')
+        +field('Overall Rating', 'overallRating')
+        +field('Watch Status', 'watchStatus')
+        +field('Genre', 'genre')
+        button Add Show 
+        a(href='/') Cancel 
