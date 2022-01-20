@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser } = require('../express-project-starter/auth.js')
+const { loginUser, logoutUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const { User } = db;
+const { User, Show, Watchlist} = db;
 
 const router = express.Router();
 
@@ -55,6 +55,15 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
+router.get('/', asyncHandler(async(req, res)=>{
+  const person = req.session.auth;
+  const key = person.userId
+  const user = await User.findByPk(key,{
+    include: [Show, Watchlist]
+  })
+  console.log(user);
+  res.render('user-page', {user})
+}));
 
 /* GET users listing. */
 router.get('/login', csrfProtection, (req, res) => {
@@ -84,11 +93,12 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
 }))
 
 router.post('/login/demo', (async(req, res) => {
-  const user = await User.findByPk(1);
-
+  const user = await User.findByPk(1,{
+    include: [Show, Watchlist]
+  })
   loginUser(req, res, user);
-  console.log(req.session.auth)
-  res.render('index', { user, title: 'goodwatch' })
+  console.log(user);
+  res.render('user-page', {user})
 }));
 
 
