@@ -1,6 +1,6 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser, requireAuth } = require('../auth.js')
+const { loginUser, logoutUser, restoreUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
@@ -88,17 +88,23 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
 }));
 
 router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
-    res.render('reviews')
+    const showId = parseInt(req.params.id, 10);
+    res.render('reviews', {showId, csrfToken: req.csrfToken()})
 
 }));
 router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
-    console.log('------')
-    const { review, overallRating } = req.body
+    const { review, rating } = req.body
     const showId = parseInt(req.params.id, 10);
+    const show = await Show.findByPk(showId)
+    const person = req.session.auth;
+    const userId = person.userId
+
 
     const reviewPost = await Review.build({
         review,
-        overallRating
+        rating,
+        userId,
+        showId
     })
     console.log(showId)
     await reviewPost.save()

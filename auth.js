@@ -37,4 +37,4 @@ const logoutUser = (req, res) => {
     }
   };
 
-module.exports = { loginUser, logoutUser }
+module.exports = { loginUser, logoutUser, restoreUser }

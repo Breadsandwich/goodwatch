@@ -2,6 +2,7 @@ extends single-show.pug
 
 block content
     form(action=`/shows/${showId}/reviews`, method="post")
+        p= showId
         input(type="hidden", name="_csrf", value=csrfToken)
         label(for="review") reviews
         textarea(name="review", cols="30", rows="4")
