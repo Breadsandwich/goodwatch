@@ -4,7 +4,7 @@ const { loginUser, logoutUser, requireAuth } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const {Show} = db
+const  {Show, Review } = db
 
 const router = express.Router()
 
@@ -72,10 +72,18 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
+    const allReviews = await Show.findAll({
+        include: {model: Review,
+        where: {
+            showId
+        }}
+    })
+
 
     res.render('single-show',{
         title: 'Show',
-        show
+        show,
+        // allReviews
     });
 }));
 
@@ -84,10 +92,5 @@ router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) =>
 
 }));
 
+
 module.exports = router
-
-
-// router.get('/', requireAuth, asyncHandler(async (req, res) => {
-//     const books = await db.Book.findAll({ where: { userId: res.locals.user.id }, order: [['title', 'ASC']] });
-//     res.render('book-list', { title: 'Books', books });
-//   }));
