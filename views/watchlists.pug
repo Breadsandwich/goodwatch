@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    ul
+        for watchlist in watchlists
+            li= watchlist.name
+    form(action="/watchlists/create" method="get")
+        button add new
+    block content
