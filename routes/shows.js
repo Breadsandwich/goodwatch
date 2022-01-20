@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, requireAuth } = require('../auth.js')
 
@@ -57,7 +56,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
 
     if(validatorErrors.isEmpty()){
         await show.save()
-        res.redirect('/shows')
+        res.redirect('/shows/all')
     }else{
         const errors = validatorErrors.array().map((error)=>error.msg)
         res.render('show-add', {
