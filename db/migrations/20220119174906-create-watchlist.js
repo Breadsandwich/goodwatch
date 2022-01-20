@@ -19,7 +19,6 @@ module.exports = {
         refrences: { model: 'Users' }
       },
       showId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         refrences: { model: 'Shows' }
       },
