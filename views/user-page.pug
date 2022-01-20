@@ -1,0 +1,12 @@
+extends index 
+
+block page 
+    h1= user.username 
+
+   
+    for show in user.Shows 
+        div.user-shows
+            h3= show.name
+            div.show-detail
+                p= `${user.username} ${show.watchStatus}`
+                p= `${show.description}` 
