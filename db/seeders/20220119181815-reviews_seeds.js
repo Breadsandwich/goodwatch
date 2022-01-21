@@ -9,7 +9,7 @@ module.exports = {
       Example:
       */
    return queryInterface.bulkInsert('Reviews', [
-     { userId: 1, showId: 1, review: 'some short review', rating: 5, createdAt: new Date(), updatedAt: new Date()}
+     {userId:1, showId: 1, review: 'some short review', rating: 5, createdAt: new Date(), updatedAt: new Date()}
    ], {});
   },
 
