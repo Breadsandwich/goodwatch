@@ -12,9 +12,9 @@ block content
     if user
       h1= `Hello ${user.username}`
       form(action="/users/logout", method="post")
-            button logout
-            a(href='/shows/all') Shows Page 
-            a(href='/watchlists') Watch Lists 
+          button logout
+          a(href='/shows/all') Shows Page 
+          a(href='/watchlists') Watch Lists 
     if !user
       span.nav-bar
         nav
