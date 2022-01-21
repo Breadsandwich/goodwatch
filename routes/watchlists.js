@@ -25,12 +25,14 @@ const watchlistVal = [
 
 // Renders ALL User's watchlists
 router.get('/', asyncHandler(async (req, res) => {
-    const user = req.session.auth;
+    const users = req.session.auth;
 
-    if (user) {
-        const userId = user.userId;
+    if (users) {
+        
+        const userId = users.userId;
+        const user = await User.findByPk(userId);
         const watchlists = await Watchlist.findAll({ where: { userId }});
-        res.render('watchlists', { watchlists })
+        res.render('watchlists', { watchlists, user })
     }
     else {
         res.redirect('/');
@@ -39,15 +41,29 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // GET specific watchlist
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const users = req.session.auth;
+
+    if (users) {
     const watchlistId = parseInt(req.params.id, 10);
     const watchlist = await Watchlist.findOne({ where: { id: watchlistId } });
 
     res.render('watchlist-profile', { watchlist, watchlistId })
+}
+else {
+    res.redirect('/');
+}
 }));
 
 // Renders create watchlist form
 router.get('/create', (req, res) => {
+    const users = req.session.auth;
+
+    if (users) {
     res.render('create-watchlist');
+}
+else {
+    res.redirect('/');
+}
 });
 
 // Creates watchlists
@@ -79,10 +95,17 @@ router.post('/create', watchlistVal, asyncHandler(async (req, res) => {
 
 // Renders watchlist edit form
 router.get('/:id(\\d+)/edit', asyncHandler(async (req, res) => {
+    const users = req.session.auth;
+
+    if (users) {
     const watchlistId = parseInt(req.params.id, 10);
     const watchlist = await Watchlist.findOne({ where: { id: watchlistId } });
 
     res.render('watchlist-edit', { watchlist, watchlistId })
+}
+else {
+    res.redirect('/');
+}
 }));
 
 // Edits watchlist
@@ -111,10 +134,17 @@ router.post('/:id(\\d+)/edit', watchlistVal, asyncHandler(async (req, res) => {
 
 // Renders delete watchlist confirmation form
 router.get('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+    const users = req.session.auth;
+
+    if (users) {
     const watchlistId = parseInt(req.params.id, 10);
     const watchlist = await Watchlist.findOne({ where: { id: watchlistId } });
 
     res.render('watchlist-delete', { watchlist, watchlistId })
+}
+else {
+    res.redirect('/');
+}
 }));
 
 // DELETES watchlist
