@@ -17,8 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Watchlist.associate = function(models) {
+    const columnMapping = {
+      through: 'WatchlistJoin',
+      otherkey: 'showId',
+      foreignKey: 'watchlistId'
+
+    }
+
+    Watchlist.belongsToMany(models.Show, columnMapping)
     Watchlist.belongsTo(models.User, { foreignKey: 'userId'})
-    Watchlist.belongsTo(models.Show, { foreignKey: 'showId'})
+    
   };
   return Watchlist;
 };

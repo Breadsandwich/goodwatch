@@ -13,6 +13,8 @@ block content
       h1= `Hello ${user.username}`
       form(action="/users/logout", method="post")
             button logout
+            a(href='/shows/all') Shows Page 
+            a(href='/watchlists') Watch Lists 
     if !user
       span.nav-bar
         nav
@@ -20,6 +22,7 @@ block content
           a(href='/users/signup') Sign up
         form(action="/users/demo", method="post")
           button demo
+          
   block page
     h1= 'Drama'
     for show in showsDrama 

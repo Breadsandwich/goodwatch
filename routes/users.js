@@ -73,12 +73,11 @@ const loginValidators = [
 ];
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
-  const person = req.session.auth;
-  const userId = person.userId
+  const userId = req.params.id;
   const user = await User.findByPk(userId,{
     include: [Show, Watchlist]
   })
-  
+
   res.render('user-page', {user})
 }));
 
@@ -93,7 +92,7 @@ router.get('/login', csrfProtection, (req, res) => {
 router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,res)=>{
   const {email, password} = req.body;
   const validatorError = validationResult(req);
-  
+
   if(validatorError.isEmpty()){
     const user = await User.findOne({
       where: {email}
@@ -162,7 +161,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  
+
   res.redirect('/');
 })
 module.exports = router;

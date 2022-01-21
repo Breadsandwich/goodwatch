@@ -18,5 +18,9 @@ mixin showTable(show)
     td= show.name 
     td= show.description 
     td= show.overallRating 
-    td= show.watchStatus 
+    td
+      select(name="watchStatus")
+        option(value="hasWatch") Has Watched 
+        option(value='wantsToWatch') Wants to Watch   
+        option(value="currentlyWatching") Currently Watching  
     td= show.genre 
