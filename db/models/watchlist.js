@@ -3,8 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Watchlist = sequelize.define('Watchlist', {
     name: {
       allowNull: false,
-      type: DataTypes.STRING,
-      unique: true
+      type: DataTypes.STRING
     },
     userId: {
       allowNull: false,

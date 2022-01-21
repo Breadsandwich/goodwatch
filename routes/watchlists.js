@@ -14,8 +14,11 @@ const watchlistVal = [
         .withMessage('Please provide a watchlist name.')
         .isLength({ max: 50 })
         .withMessage('Watchlist name cannot be longer than 50 charachters.')
-        .custom(async(name)=>{
-            const watchlist = await Watchlist.findOne({where:{name}})
+        .custom(async(name, { req })=>{
+            const person = req.session.auth;
+            const userId = person.userId;
+            const user = await User.findByPk(userId);
+            const watchlist = await Watchlist.findOne({where:{name, userId}})
             if(watchlist) throw new Error('Watchlist name already exists')
         }),
 ];
