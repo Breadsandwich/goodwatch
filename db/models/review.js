@@ -8,8 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Review.associate = function(models) {
     // associations can be defined here
+    // TODO: reviewCollumnMapping
+    
     Review.belongsTo(models.User, { foreignKey: 'userId' })
     Review.belongsTo(models.Show, { foreignKey: 'showId' })
+    // Review.hasMany(models.User, { foreignKey: 'reviewId' })
   };
   return Review;
 };

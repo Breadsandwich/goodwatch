@@ -10,7 +10,6 @@ const logoutUser = (req, res) => {
     delete req.session.auth;
   };
 
-
 const restoreUser = async (req, res, next) => {
 
 if (req.session.auth) {
@@ -33,5 +32,6 @@ if (req.session.auth) {
     next();
 }
 };
+
 
 module.exports = { loginUser, logoutUser, restoreUser }
