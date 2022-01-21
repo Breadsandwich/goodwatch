@@ -73,12 +73,19 @@ const loginValidators = [
 ];
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
+  const users = req.session.auth;
+
+    if (users) {
   const userId = req.params.id;
   const user = await User.findByPk(userId,{
     include: [Show, Watchlist]
   })
 
   res.render('user-page', {user})
+}
+else {
+    res.redirect('/');
+}
 }));
 
 /* GET users listing. */
