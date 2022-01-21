@@ -65,7 +65,7 @@ const loginValidators = [
       const email = req.body.email;
       const user = await User.findOne({where:{email}});
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
-      if (match) {
+      if (!match) {
           throw new Error('Password does not match to the given email');
       }
       return true;
@@ -103,7 +103,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
       if(match){
         console.log('heeeeeeeeeeeeeeeeeeeellllllllllllllllllllllllllloooooooooooooooooooo', match)
         loginUser(req,res,user)
-        return res.redirect('/users/:id(\\d+)');
+        return res.redirect(`/users/${user.id}`);
       }
     }
   }else{
@@ -146,7 +146,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
       hashedPassword
     });
     loginUser(req,res,user);
-    return res.redirect('/');
+    return res.redirect(`/users/${user.id}`);
   }else{
     const errors = validatorError.array().map((error) => error.msg);
     console.log(errors)
