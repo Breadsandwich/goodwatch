@@ -2,6 +2,7 @@ extends layout.pug
 
 block content 
         a(href='/shows/add') Add a Show 
+        a(href='/') Home 
         table 
             thead 
                 tr 
@@ -13,8 +14,10 @@ block content
             tbody 
                 each show in shows 
                     tr 
-                        td= show.name 
+                        td= show.name
                         td= show.description 
                         td= show.overallRating 
                         td= show.watchStatus 
                         td= show.genre 
+                        td 
+                            a(href=`/shows/${show.id}`) Show Page 
