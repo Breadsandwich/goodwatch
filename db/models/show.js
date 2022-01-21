@@ -15,9 +15,17 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'showId'
      }
 
+     const columnMapping2 = {
+      through: 'WatchlistJoin',
+      otherkey: 'watchlistId',
+      foreignKey: 'showId'
+
+    }
+
+    Show.belongsToMany(models.Watchlist, columnMapping2)
     Show.hasMany(models.Review, { foreignKey: 'showId' });
-    Show.belongsToMany(models.User, columnMapping);
-    Show.hasMany(models.Watchlist, { foreignKey: 'showId' });
+    Show.belongsToMany(models.User, columnMapping)
+
   };
   return Show;
 };

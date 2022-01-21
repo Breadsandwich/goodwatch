@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     // Column mapping
 
     // associations can be defined here
-    Review.belongsTo(models.User, { foreignKey: 'userId' });
-    Review.belongsTo(models.Show, { foreignKey: 'showId' });
+    // TODO: reviewCollumnMapping
+
+    Review.belongsTo(models.User, { foreignKey: 'userId' })
+    Review.belongsTo(models.Show, { foreignKey: 'showId' })
+    // Review.hasMany(models.User, { foreignKey: 'reviewId' })
   };
   return Review;
 };

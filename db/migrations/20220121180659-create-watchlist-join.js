@@ -1,23 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Watchlists', {
+    return queryInterface.createTable('WatchlistJoins', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING(255),
-      },
-      userId: {
+      watchlistId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        refrences: { model: 'Users' }
+        refrences: { model: 'Watchlists' }
       },
       showId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         refrences: { model: 'Shows' }
       },
@@ -32,6 +29,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Watchlists');
+    return queryInterface.dropTable('WatchlistJoins');
   }
 };
