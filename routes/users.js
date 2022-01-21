@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser } = require('../auth.js')
+const { loginUser, logoutUser, restoreUser} = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
@@ -57,11 +57,11 @@ const loginValidators = [
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
   const person = req.session.auth;
-  const key = person.userId
-  const user = await User.findByPk(key,{
+  const userId = person.userId
+  const user = await User.findByPk(userId,{
     include: [Show, Watchlist]
   })
-  console.log(user);
+  
   res.render('user-page', {user})
 }));
 
@@ -76,8 +76,7 @@ router.get('/login', csrfProtection, (req, res) => {
 router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,res)=>{
   const {email, password} = req.body;
   const validatorError = validationResult(req);
-  console.log(validatorError)
-  // console.log(user);
+  
   if(validatorError.isEmpty()){
     const user = await User.findOne({
       where: {email}
@@ -92,12 +91,11 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
   }
 }))
 
-router.post('/:id(\\d+)', (async(req, res) => {
+router.post('/demo', (async(req, res) => {
   const user = await User.findByPk(1,{
     include: [Show, Watchlist]
   })
   loginUser(req, res, user);
-  console.log(user);
   res.render('user-page', {user})
 }));
 
@@ -112,7 +110,6 @@ router.get('/signup', csrfProtection, (req, res) => {
 router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => {
   const {username, email, password} = req.body;
 
-  // console.log('----------- Hello');
   const user = await User.build({
     username,
     email,
@@ -140,7 +137,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  console.log(req.session.auth)
+  
   res.redirect('/');
 })
 module.exports = router;

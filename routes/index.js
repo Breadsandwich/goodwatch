@@ -1,12 +1,12 @@
 var express = require('express');
-
+const {restoreUser} = require('../auth.js')
 const db = require('../db/models');
 const { asyncHandler } = require('./utils');
 const { Show } = db;
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', asyncHandler(async(req, res, next)=> {
+router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
   const showsDrama = await Show.findAll({
     where: {
       genre: 'Drama'
