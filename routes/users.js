@@ -56,12 +56,11 @@ const loginValidators = [
 ];
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
-  const person = req.session.auth;
-  const userId = person.userId
+  const userId = req.params.id;
   const user = await User.findByPk(userId,{
     include: [Show, Watchlist]
   })
-  
+
   res.render('user-page', {user})
 }));
 
@@ -76,7 +75,7 @@ router.get('/login', csrfProtection, (req, res) => {
 router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,res)=>{
   const {email, password} = req.body;
   const validatorError = validationResult(req);
-  
+
   if(validatorError.isEmpty()){
     const user = await User.findOne({
       where: {email}
@@ -85,7 +84,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
       if(match){
         loginUser(req,res,user)
-        return res.redirect('/users/:id(\\d+)');
+        return res.redirect(`/users/${user.id}`);
       }
     }
   }
@@ -121,7 +120,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
     user.hashedPassword = hashPassword;
     await user.save();
     loginUser(req,res,user);
-    return res.redirect('/users/:id(\\d+)');
+    return res.redirect(`/users/${user.id}`);
   }else{
     const errors = validatorError.array().map((error) => error.msg);
             res.render('signup-form', {
@@ -137,7 +136,7 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  
+
   res.redirect('/');
 })
 module.exports = router;
