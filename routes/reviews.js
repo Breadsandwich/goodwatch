@@ -5,9 +5,10 @@ const { loginUser, logoutUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const { User } = db;
+const { User, Show } = db;
 
 const router = express.Router();
+
 
 
 module.exports = router

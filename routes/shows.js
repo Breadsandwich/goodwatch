@@ -1,10 +1,10 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser, requireAuth } = require('../auth.js')
+const { loginUser, logoutUser, restoreUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const {Show} = db
+const  {Show, Review } = db
 
 const router = express.Router()
 
@@ -61,7 +61,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
         const errors = validatorErrors.array().map((error)=>error.msg)
         res.render('show-add', {
             title: 'Add Show',
-            show, 
+            show,
             errors,
             csrfToken: req.csrfToken()
         });
@@ -72,10 +72,45 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
+    const allReviews = await Show.findAll({
+        include: {model: Review,
+        where: {
+            showId
+        }}
+    })
+
 
     res.render('single-show',{
         title: 'Show',
-        show
+        show,
+        // allReviews
     });
 }));
+
+router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
+    const showId = parseInt(req.params.id, 10);
+    res.render('reviews', {showId, csrfToken: req.csrfToken()})
+
+}));
+router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
+    const { review, rating } = req.body
+    const showId = parseInt(req.params.id, 10);
+    const show = await Show.findByPk(showId)
+    const person = req.session.auth;
+    const userId = person.userId
+
+
+    const reviewPost = await Review.build({
+        review,
+        rating,
+        userId,
+        showId
+    })
+    console.log(showId)
+    await reviewPost.save()
+    res.redirect(`/shows/${showId}`)
+
+}));
+
+
 module.exports = router

@@ -29,7 +29,11 @@ module.exports = {
       {name: 'Predator', description: 'It stars Arnold Schwarzenegger as the leader of an elite paramilitary rescue team on a mission to save hostages in guerrilla-held territory in a Central American rainforest, who encounter the deadly Predator (Kevin Peter Hall), a technologically advanced alien who stalks and hunts them down.', overallRating: 3.2, genre:'Action', createdAt: new Date(), updatedAt: new Date() },
       {name: 'Nobody',description: 'Hutch Mansell fails to defend himself or his family when two thieves break into his suburban home one night. The aftermath of the incident soon strikes a match to his long-simmering rage. In a barrage of fists, gunfire and squealing tires, Hutch must now save his wife and son from a dangerous adversary -- and ensure that he will never be underestimated again.', overallRating: 4.50, genre: 'Action', createdAt: new Date(), updatedAt: new Date() },
       {name: 'Baby Driver', description: 'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail. Baby is a young and partially hearing impaired getaway driver who can make any wild move while in motion with the right track playing.', overallRating: 4.20, genre: 'Action', createdAt: new Date(), updatedAt: new Date() },
-      {name: 'Taken', description: 'A retired CIA agent travels across Europe and relies on his old skills to save his estranged daughter, who has been kidnapped while on a trip to Paris. Seventeen year-old Kim is the pride and joy of her father Bryan Mills.', overallRating: 3.50 , genre: 'Action', createdAt: new Date(), updatedAt: new Date() },
+
+      {name: 'Taken', description: 'A retired CIA agent travels across Europe and relies on his old skills to save his estranged daughter, who has been kidnapped while on a trip to Paris. Seventeen year-old Kim is the pride and joy of her father Bryan Mills.', overallRating: 3.50 , genre: 'Action', createdAt: new Date(), updatedAt: new Date()},
+
+
+
 
   ], {});
   },
