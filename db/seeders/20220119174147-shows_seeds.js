@@ -9,6 +9,7 @@ module.exports = {
       Example:
       */
    return queryInterface.bulkInsert('Shows', [
+
       {name: 'John Doe', description: 'some text', overallRating: 5.00, genre: 'example fantasy', createdAt: new Date(), updatedAt: new Date() },
       {name: 'euphoria', description: 'An American adaptation of the Israeli show of the same name, "Euphoria" follows the troubled life of 17-year-old Rue, a drug addict fresh from rehab with no plans to stay clean. Circling in Rues orbit are Jules, a transgender girl searching for where she belongs; Nate, a jock whose anger issues mask sexual insecurities; Chris, a football star who finds the adjustment from high school to college harder than expected; Cassie, whose sexual history continues to dog her.',overallRating: 4.20,watchStatus: '', genre: 'Drama', createdAt: new Date(), updatedAt: new Date()},
       {name: 'Riverdale', description: 'Archie Andrews starts the school year with the world weighing on his shoulders. Hes decided he wants to pursue a future in the music business, but his recently ended clandestine relationship with the music teacher has left him without a mentor, and his friendship with Jughead Jones is in a bad place. Things look like they might be turning around when Veronica Lodge, a new girl, arrives. Despite the instant chemistry, Veronica is hesitant to risk a friendship with Betty.', overallRating: 3.35 ,watchStatus: '', genre: 'Drama', createdAt: new Date(), updatedAt: new Date()},
@@ -29,10 +30,7 @@ module.exports = {
       {name: 'Predator', description: 'It stars Arnold Schwarzenegger as the leader of an elite paramilitary rescue team on a mission to save hostages in guerrilla-held territory in a Central American rainforest, who encounter the deadly Predator (Kevin Peter Hall), a technologically advanced alien who stalks and hunts them down.', overallRating: 3.2, genre:'Action', createdAt: new Date(), updatedAt: new Date() },
       {name: 'Nobody',description: 'Hutch Mansell fails to defend himself or his family when two thieves break into his suburban home one night. The aftermath of the incident soon strikes a match to his long-simmering rage. In a barrage of fists, gunfire and squealing tires, Hutch must now save his wife and son from a dangerous adversary -- and ensure that he will never be underestimated again.', overallRating: 4.50, genre: 'Action', createdAt: new Date(), updatedAt: new Date() },
       {name: 'Baby Driver', description: 'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail. Baby is a young and partially hearing impaired getaway driver who can make any wild move while in motion with the right track playing.', overallRating: 4.20, genre: 'Action', createdAt: new Date(), updatedAt: new Date() },
-
       {name: 'Taken', description: 'A retired CIA agent travels across Europe and relies on his old skills to save his estranged daughter, who has been kidnapped while on a trip to Paris. Seventeen year-old Kim is the pride and joy of her father Bryan Mills.', overallRating: 3.50 , genre: 'Action', createdAt: new Date(), updatedAt: new Date()},
-
-
 
 
   ], {});
