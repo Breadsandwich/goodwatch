@@ -10,8 +10,10 @@ const router = express.Router()
 
 //get all shows
 router.get('/all', asyncHandler(async(req, res)=>{
-    const shows = await Show.findAll()
+    const shows = await Show.findAll({include: Show.id})
     res.render('all-shows', {title: 'Shows', shows})
+
+    
 }));
 
 //new show form
@@ -58,7 +60,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
         await show.save()
         res.redirect('/shows/all')
     }else{
-        const errors = validatorErrors.array().map((error)=>error.msg)
+        const errors = validatorErrors.array() .map((error)=>error.msg)
         res.render('show-add', {
             title: 'Add Show',
             show,
@@ -95,10 +97,10 @@ router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) =>
 router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
     const { review, rating } = req.body
     const showId = parseInt(req.params.id, 10);
-    const show = await Show.findByPk(showId)
+    // const show = await Show.findByPk(showId)
     const person = req.session.auth;
     const userId = person.userId
-
+console.log(req);
 
     const reviewPost = await Review.build({
         review,
@@ -106,7 +108,7 @@ router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) =
         userId,
         showId
     })
-    console.log(showId)
+    // console.log(showId)
     await reviewPost.save()
     res.redirect(`/shows/${showId}`)
 

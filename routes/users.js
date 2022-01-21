@@ -56,8 +56,7 @@ const loginValidators = [
 ];
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
-  const person = req.session.auth;
-  const userId = person.userId
+  const userId = req.params.id;
   const user = await User.findByPk(userId,{
     include: [Show, Watchlist]
   })
