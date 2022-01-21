@@ -15,13 +15,19 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
-    const columnMapping = {
+    const watchlistColumnMapping = {
       through: 'Watchlist',
       otherKey: 'showId',
       foreignKey: 'userId'
      }
+     const reviewColumnMapping = {
+      through: 'Reviews',
+      otherKey: 'showId',
+      foreignKey: 'userId'
+     }
 
-    User.belongsToMany(models.Show, columnMapping);
+    User.belongsToMany(models.Show, watchlistColumnMapping);
+    // User.belongsToMany(models.Show, reviewColumnMapping);
     // User.hasMany(models.Review, { foreignKey: 'reviewId'})
 
   };

@@ -14,9 +14,14 @@ mixin field (labelText, fieldName, fieldValue, fieldType = 'text')
 
 
 mixin showTable(show)
-  tr 
-    td= show.name 
-    td= show.description 
-    td= show.overallRating 
-    td= show.watchStatus 
-    td= show.genre 
+  tr
+    td= show.name
+    td= show.description
+    td= show.overallRating
+    td= show.watchStatus
+    td= show.genre
+
+//- mixin reviewTable(review)
+//-   tr
+//-     td= review.review
+//-     td= review.rating

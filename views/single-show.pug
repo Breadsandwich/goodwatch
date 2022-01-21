@@ -15,4 +15,11 @@ block content
                 +showTable(show)
                 a(href='/shows/all') Back to Shows
                 a(href=`/shows/${show.id}/reviews`) write a review
- 
+    //- div
+    //-     table
+    //-         thead
+    //-             tr
+    //-                 th review
+    //-                 th rating
+    //-         tbody
+    //-             +reviewTable(review)
