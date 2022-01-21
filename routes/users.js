@@ -151,6 +151,22 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
       email,
       hashedPassword
     });
+    const wantTowatch = await Watchlist.create({
+      name: 'Wants to Watch',
+      userId: `${user.id}`
+    });
+    const current = await Watchlist.create({
+      name: 'Currently Watch',
+      userId: `${user.id}`
+    });
+    const watched = await Watchlist.create({
+      name: 'Have Watched',
+      userId: `${user.id}`
+    });
+    const haventWatch = await Watchlist.create({
+      name: 'Havent Watched',
+      userId: `${user.id}`
+    });
     loginUser(req,res,user);
     return res.redirect(`/users/${user.id}`);
   }else{
@@ -166,9 +182,10 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
 
 }));
 
-router.post('/logout', (req, res) => {
-  logoutUser(req, res);
+router.post('/logout', async(req, res) => {
+  await logoutUser(req, res);
+  return req.session.save(() => {res.redirect('/')})
 
-  res.redirect('/');
+
 })
 module.exports = router;
