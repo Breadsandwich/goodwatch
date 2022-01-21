@@ -21,6 +21,7 @@ module.exports = {
         type: Sequelize.NUMERIC(3, 2)
       },
       watchStatus: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       genre: {
