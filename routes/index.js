@@ -10,25 +10,29 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
   const showsDrama = await Show.findAll({
     where: {
       genre: 'Drama'
-    }
+    },
+    limit: 3
   })
   
   const showsSciFi = await Show.findAll({
     where: {
       genre: 'Sci-Fi'
-    }
+    },
+    limit: 3
   })
 
   const showsFood = await Show.findAll({
     where: {
       genre: 'Food'
-    }
+    },
+    limit: 3
   })
   
   const showsAction = await Show.findAll({
     where: {
       genre: 'Action'
-    }
+    },
+    limit: 3
   })
   res.render('index', { title: 'Welcome to Goodwatch' , showsDrama, showsSciFi, showsFood, showsAction});
 }));
