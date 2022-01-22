@@ -1,15 +1,17 @@
 doctype html
 html
   head
+      script(src='/javascripts/index.js' type='module')
       block head
         title="Goodwatch"
         link(rel='stylesheet' href='/stylesheets/reset.css')
         a(href='/') Home
+
   body
 
     .watchListContainer
-        p(id='wantsToWatch') Wants to watch: (<span class='wantsToWatchCount'>#{0})
-        p(id='hasWatched') Has Watched: (<span class='hasWatchedCount'>#{0})
-        p(id='currently') Currently watching: (<span class='currentlyCount'>#{0}) 
+        p Wants to watch: <span id='wantsToWatchCount'>0
+        p Has Watched: <span id='hasWatchedCount'>0
+        p Currently watching: <span id='currentlyCount'>0 
 
         block content

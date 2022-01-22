@@ -1,15 +1,25 @@
-window.addEventListener("DOMContentLoaded", (event)=>{
-    const hasWatchedButton = document.getElementsByClassName('watch')
-    const wantsToWatchButton = document.getElementsByClassName('wantsToWatch')
-    const currentlyButton = document.getElementsByClassName('currentlyWatch')
+
+    // console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`);
+window.addEventListener("load", (event)=>{
+    const hasWatchedButton = document.getElementById('watch')
+    const wantsToWatchButton = document.getElementById('wantsToWatch')
+    const currentlyButton = document.getElementById('currentlyWatch')
 
     
 
-    const hasWatchedCount = document.getElementsByClassName('hasWatchedCount')
-    const wantsToWatchCount = document.getElementsByClassName('wantsToWatchCount')
-    const currentlyCount = document.getElementsByClassName('currentlyCount')
+    const hasWatchedCount = document.getElementById('hasWatchedCount')
+    const wantsToWatchCount = document.getElementById('wantsToWatchCount')
+    const currentlyCount = document.getElementById('currentlyCount')
+
+    
 
     hasWatchedButton.addEventListener('click', () =>{
-        
-    })
-})
+        hasWatchedCount.innerText++
+    });
+    wantsToWatchButton.addEventListener('click', ()=>{
+        wantsToWatchCount.innerText++
+    });
+    currentlyButton.addEventListener('click', ()=>{
+        currentlyCount.innerText++
+    });
+});
