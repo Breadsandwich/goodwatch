@@ -107,7 +107,6 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,re
     if(user){
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
       if(match){
-        console.log('heeeeeeeeeeeeeeeeeeeellllllllllllllllllllllllllloooooooooooooooooooo', match)
         loginUser(req,res,user)
         return res.redirect(`/users/${user.id}`);
       }
@@ -128,8 +127,11 @@ router.post('/demo', asyncHandler(async(req, res) => {
   const user = await User.findByPk(1,{
     include: [Show, Watchlist]
   })
+
+  const watchlists = await Watchlist.findAll({ where: { userId: 1 } });
+
   loginUser(req, res, user);
-  res.render('user-page', {user})
+  res.render('user-page', { user, watchlists });
 }));
 
 

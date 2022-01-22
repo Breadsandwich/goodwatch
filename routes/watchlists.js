@@ -28,7 +28,6 @@ router.get('/', asyncHandler(async (req, res) => {
     const users = req.session.auth;
 
     if (users) {
-
         const userId = users.userId;
         const user = await User.findByPk(userId);
         const watchlists = await Watchlist.findAll({ where: { userId }});
@@ -120,8 +119,6 @@ router.post('/api-create', watchlistVal, asyncHandler(async (req, res) => {
             errors
         });
     }
-
-    res.redirect('/watchlists');
 }));
 
 

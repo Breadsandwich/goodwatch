@@ -1,8 +1,7 @@
 extends index
 
 block page
-    ul
+    ul.watchlist-ul
         for watchlist in watchlists
             li= watchlist.name
-    //- form(action="/watchlists/create" method="get")
-    button#add-watchlist add new
+    button.add-watchlist add

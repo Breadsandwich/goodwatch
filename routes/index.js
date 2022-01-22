@@ -13,7 +13,7 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
     },
     limit: 3
   })
-  
+
   const showsSciFi = await Show.findAll({
     where: {
       genre: 'Sci-Fi'
@@ -27,7 +27,7 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
     },
     limit: 3
   })
-  
+
   const showsAction = await Show.findAll({
     where: {
       genre: 'Action'
