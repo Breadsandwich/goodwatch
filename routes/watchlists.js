@@ -28,7 +28,7 @@ router.get('/', asyncHandler(async (req, res) => {
     const users = req.session.auth;
 
     if (users) {
-        
+
         const userId = users.userId;
         const user = await User.findByPk(userId);
         const watchlists = await Watchlist.findAll({ where: { userId }});
@@ -92,6 +92,40 @@ router.post('/create', watchlistVal, asyncHandler(async (req, res) => {
 
     res.redirect('/watchlists');
 }));
+
+
+
+router.post('/api-create', watchlistVal, asyncHandler(async (req, res) => {
+    const { name } = req.body;
+
+    const validatorError = validationResult(req);
+
+    if (validatorError.isEmpty()) {
+        const user = req.session.auth;
+        const userId = user.userId;
+
+        const watchlist = await Watchlist.build({
+            name,
+            userId
+        });
+
+        await watchlist.save();
+
+        res.json({ message: "success" });
+    } else {
+        const errors = validatorError.array().map((error) => error.msg);
+
+        res.json({
+            message: "fail",
+            errors
+        });
+    }
+
+    res.redirect('/watchlists');
+}));
+
+
+
 
 // Renders watchlist edit form
 router.get('/:id(\\d+)/edit', asyncHandler(async (req, res) => {
