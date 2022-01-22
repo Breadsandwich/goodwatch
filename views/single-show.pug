@@ -3,6 +3,7 @@ extends layout.pug
 include utils.pug
 
 block content
+    script(src="/javascripts/index.js" type="module" defer)
     table
             thead
                 tr
@@ -15,4 +16,12 @@ block content
                 +showTable(show)
                 a(href='/shows/all') Back to Shows
                 a(href=`/shows/${show.id}/reviews`) write a review
- 
+    h1= 'Add to a watchlist'
+    if user
+        ul.watchlist-ul
+            for list in watchlists
+                li= list.name
+        button.add-watchlist add
+    h1= 'Reviews'
+    for review in reviews
+        p= review.review

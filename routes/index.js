@@ -13,7 +13,7 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
     },
     limit: 3
   })
-  
+
   const showsSciFi = await Show.findAll({
     where: {
       genre: 'Sci-Fi'
@@ -27,14 +27,36 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
     },
     limit: 3
   })
-  
+
   const showsAction = await Show.findAll({
     where: {
       genre: 'Action'
     },
     limit: 3
   })
-  res.render('index', { title: 'Welcome to Goodwatch' , showsDrama, showsSciFi, showsFood, showsAction});
+
+  const showsComedy = await Show.findAll({
+    where: {
+      genre: 'comedy'
+    },
+    limit: 3
+  })
+
+  const showsKids = await Show.findAll({
+    where: {
+      genre: 'kids'
+    },
+    limit: 3
+  })
+  
+  res.render('index', { title: 'Welcome to Goodwatch',
+    showsDrama,
+    showsSciFi,
+    showsFood,
+    showsAction,
+    showsComedy,
+    showsKids
+  });
 }));
 
 module.exports = router;

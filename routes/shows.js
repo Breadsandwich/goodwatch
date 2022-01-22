@@ -1,10 +1,11 @@
 const express = require('express');
+const { Op } = require('sequelize');
 const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, restoreUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const  {Show, Review } = db
+const  {Show, Review, Watchlist } = db
 
 const router = express.Router()
 
@@ -12,8 +13,6 @@ const router = express.Router()
 router.get('/all', asyncHandler(async(req, res)=>{
     const shows = await Show.findAll({include: Show.id})
     res.render('all-shows', {title: 'Shows', shows})
-
-    
 }));
 
 //new show form
@@ -72,20 +71,19 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async(req, res)=
 }));
 
 router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
+    const user = req.session.auth;
+    const userId = user.userId;
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
-    const allReviews = await Show.findAll({
-        include: {model: Review,
-        where: {
-            showId
-        }}
-    })
-
+    const reviews = await Review.findAll({ where: { showId } });
+    const watchlists = await Watchlist.findAll({ where: { userId } });
 
     res.render('single-show',{
         title: 'Show',
         show,
-        // allReviews
+        reviews,
+        user,
+        watchlists
     });
 }));
 
@@ -94,13 +92,13 @@ router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) =>
     res.render('reviews', {showId, csrfToken: req.csrfToken()})
 
 }));
+
 router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async(req, res) => {
     const { review, rating } = req.body
     const showId = parseInt(req.params.id, 10);
     // const show = await Show.findByPk(showId)
     const person = req.session.auth;
     const userId = person.userId
-console.log(req);
 
     const reviewPost = await Review.build({
         review,
@@ -111,8 +109,20 @@ console.log(req);
     // console.log(showId)
     await reviewPost.save()
     res.redirect(`/shows/${showId}`)
-
 }));
 
+router.post('/search', async(req, res) => {
+    const { name } = req.body;
+
+    const shows = await Show.findAll({ where: {
+        name: {
+            [Op.or]: [
+                { [Op.substring]: name }, { [Op.startsWith]: name }, { [Op.like]: `%${name}` }
+            ]
+        }
+    } });
+
+    res.render('shows-search', { shows });
+});
 
 module.exports = router

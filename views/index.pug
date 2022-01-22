@@ -13,8 +13,8 @@ block content
       h1= `Hello ${user.username}`
       form(action="/users/logout", method="post")
           button logout
-          a(href='/shows/all') Shows Page 
-          a(href='/watchlists') Watch Lists 
+          a(href='/shows/all') Shows Page
+          a(href='/watchlists') Watch Lists
     if !user
       span.nav-bar
         nav
@@ -22,30 +22,35 @@ block content
           a(href='/users/signup') Sign up
         form(action="/users/demo", method="post")
           button demo
-          
+
   block page
     h1= 'Drama'
-    for show in showsDrama 
+    for show in showsDrama
         div.shows
             h3= show.name
-            if user 
-              button Add
+            if user
+              //- button Add
     h1= 'Sci-Fi'
-    for show in showsSciFi 
+    for show in showsSciFi
         div.shows
             h3= show.name
-            if user 
-              button Add
+            if user
+              //- button Add
     h1= 'Food'
-    for show in showsFood 
+    for show in showsFood
         div.shows
             h3= show.name
-            if user 
-              button Add
+            if user
+              //- button Add
     h1= 'Action'
-    for show in showsAction 
+    for show in showsAction
         div.shows
             h3= show.name
-            //- if user 
-            //-   button Add
-             
+    h1= 'Comedy'
+    for show in showsComedy
+        div.shows
+            h3= show.name
+    h1= 'Kids'
+    for show in showsKids
+        div.shows
+            h3= show.name
