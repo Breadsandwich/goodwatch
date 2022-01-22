@@ -23,6 +23,7 @@ window.addEventListener("load", async (event) => {
                 newInput.remove();
                 cancelButton.remove();
                 submitButton.remove();
+                error.remove();
             });
 
             submitButton.addEventListener("click", async () => {
