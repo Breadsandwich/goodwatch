@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Watchlist.belongsToMany(models.Show, columnMapping)
     Watchlist.belongsTo(models.User, { foreignKey: 'userId'})
-    
+
   };
   return Watchlist;
 };
