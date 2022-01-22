@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { loginUser, logoutUser, restoreUser} = require('../auth.js')
+const { loginUser, logoutUser, restoreUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const { User, Show, Watchlist} = db;
+const { User, Show, Watchlist } = db;
 
 const router = express.Router();
 
@@ -18,36 +18,36 @@ const userVal = [
     .custom(async (username) => {
       const user = await User.findOne({ where: { username } })
       if (user) throw new Error('User name already in use.')
-  }),
+    }),
   check('email')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide an email.')
-        .isLength({ max: 255 })
-        .withMessage('Email cannot be longer than 255 charachters.')
-        .isEmail()
-        .withMessage('Must be a valid email')
-        .custom(async (email) => {
-            const user = await User.findOne({ where: { email } })
-            if (user) throw new Error('Email already in use.')
-        }),
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide an email.')
+    .isLength({ max: 255 })
+    .withMessage('Email cannot be longer than 255 charachters.')
+    .isEmail()
+    .withMessage('Must be a valid email')
+    .custom(async (email) => {
+      const user = await User.findOne({ where: { email } })
+      if (user) throw new Error('Email already in use.')
+    }),
   check('password')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a value for Password')
-        .isLength({ max: 50 })
-        .withMessage('Password must not be more than 50 characters long')
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
-        .withMessage('Password must contain atleast 1 lowercase letter, uppercase letter, number, and special charachter (i.e "!@#$%^&*") '),
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password')
+    .isLength({ max: 50 })
+    .withMessage('Password must not be more than 50 characters long')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+    .withMessage('Password must contain atleast 1 lowercase letter, uppercase letter, number, and special charachter (i.e "!@#$%^&*") '),
   check('confirmPassword')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a value for Confirm Password')
-        .isLength({ max: 50 })
-        .withMessage('Confirm Password must not be more than 50 characters long')
-        .custom((confirmPassword, { req }) => {
-            if (confirmPassword !== req.body.password) {
-                throw new Error('Confirm Password does not match Password');
-            }
-            return true;
-        })
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Confirm Password')
+    .isLength({ max: 50 })
+    .withMessage('Confirm Password must not be more than 50 characters long')
+    .custom((confirmPassword, { req }) => {
+      if (confirmPassword !== req.body.password) {
+        throw new Error('Confirm Password does not match Password');
+      }
+      return true;
+    })
 ];
 
 const loginValidators = [
@@ -57,35 +57,36 @@ const loginValidators = [
     .custom(async (email) => {
       const user = await User.findOne({ where: { email } })
       if (!user) throw new Error('Please provide a valid Email')
-  }),
+    }),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
-    .custom(async(password, { req }) => {
+    .custom(async (password, { req }) => {
       const email = req.body.email;
-      const user = await User.findOne({where:{email}});
+      const user = await User.findOne({ where: { email } });
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
       if (!match) {
-          throw new Error('Password does not match to the given email');
+        throw new Error('Password does not match to the given email');
       }
       return true;
-  })
+    })
 ];
 
-router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const users = req.session.auth;
 
-    if (users) {
-  const userId = req.params.id;
-  const user = await User.findByPk(userId,{
-    include: [Show, Watchlist]
-  })
+  if (users) {
+    const userId = req.params.id;
+    const user = await User.findByPk(userId, {
+      include: [Show, Watchlist]
+    })
+    const watchlists = await Watchlist.findAll({ where: { userId } });
 
-  res.render('user-page', {user})
-}
-else {
+    res.render('user-page', { user, watchlists })
+  }
+  else {
     res.redirect('/');
-}
+  }
 }));
 
 /* GET users listing. */
@@ -96,35 +97,36 @@ router.get('/login', csrfProtection, (req, res) => {
   })
 });
 
-router.post('/login', csrfProtection, loginValidators, asyncHandler(async(req,res)=>{
-  const {email, password} = req.body;
+router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
   const validatorError = validationResult(req);
 
-  if(validatorError.isEmpty()){
+  if (validatorError.isEmpty()) {
     const user = await User.findOne({
-      where: {email}
+      where: { email }
     });
-    if(user){
+    if (user) {
       const match = await bcrypt.compare(password, user.hashedPassword.toString());
-      if(match){
-        loginUser(req,res,user)
+      if (match) {
+        loginUser(req, res, user)
         return res.redirect(`/users/${user.id}`);
       }
     }
-  }else{
+  } else {
     const errors = validatorError.array().map((error) => error.msg);
     console.log(errors)
-            res.render('user-login', {
-                title: 'Login',
-                errors,
-                csrfToken: req.csrfToken(),
-            });
+    res.render('user-login', {
+      title: 'Login',
+      errors,
+      csrfToken: req.csrfToken(),
+    });
 
   }
 }))
 
-router.post('/demo', asyncHandler(async(req, res) => {
-  const user = await User.findByPk(1,{
+router.post('/demo', asyncHandler(async (req, res) => {
+
+  const user = await User.findByPk(1, {
     include: [Show, Watchlist]
   })
 
@@ -142,11 +144,11 @@ router.get('/signup', csrfProtection, (req, res) => {
   })
 });
 
-router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => {
-  const {username, email, password} = req.body;
+router.post('/signup', csrfProtection, userVal, asyncHandler(async (req, res) => {
+  const { username, email, password } = req.body;
 
   const validatorError = validationResult(req);
-  if(validatorError.isEmpty()){
+  if (validatorError.isEmpty()) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       username,
@@ -169,24 +171,24 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async(req, res) => 
       name: 'Havent Watched',
       userId: `${user.id}`
     });
-    loginUser(req,res,user);
+    loginUser(req, res, user);
     return res.redirect(`/users/${user.id}`);
-  }else{
+  } else {
     const errors = validatorError.array().map((error) => error.msg);
     console.log(errors)
-            res.render('signup-form', {
-                title: 'Signup',
-                errors,
-                csrfToken: req.csrfToken(),
-            });
+    res.render('signup-form', {
+      title: 'Signup',
+      errors,
+      csrfToken: req.csrfToken(),
+    });
 
   }
 
 }));
 
-router.post('/logout', async(req, res) => {
+router.post('/logout', async (req, res) => {
   await logoutUser(req, res);
-  return req.session.save(() => {res.redirect('/')})
+  return req.session.save(() => { res.redirect('/') })
 
 
 })

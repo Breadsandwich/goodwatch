@@ -1,6 +1,7 @@
 extends index
 
 block page
+    h1= 'Welcome to your watchlists!'
     ul.watchlist-ul
         for watchlist in watchlists
             li= watchlist.name
