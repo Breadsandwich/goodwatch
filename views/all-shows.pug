@@ -5,6 +5,7 @@ block content
         table
             thead
                 tr
+                    th
                     th Name
                     th Overall Rating
                     th Watch Status
@@ -12,6 +13,8 @@ block content
             tbody
                 each show in shows
                     tr
+                        td
+                            img(src=`${show.imageSrc}`, alt="show pic")
                         td= show.name
                         td= show.overallRating
                         td= show.watchStatus
