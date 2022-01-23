@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     overallRating: DataTypes.NUMERIC,
     watchStatus: DataTypes.STRING,
-    genre: DataTypes.STRING
+    genre: DataTypes.STRING,
+    imageSrc: DataTypes.STRING
   }, {});
   Show.associate = function(models) {
     // associations can be defined here
