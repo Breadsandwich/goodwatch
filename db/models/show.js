@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     overallRating: DataTypes.NUMERIC,
     watchStatus: DataTypes.BOOLEAN,
+
     genre: DataTypes.STRING,
     imageSrc: DataTypes.STRING
   }, {});
