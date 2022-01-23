@@ -103,7 +103,8 @@ router.post('/api-create', watchlistVal, asyncHandler(async (req, res) => {
 
         const watchlist = await Watchlist.build({
             name,
-            userId
+            userId,
+            showsList: []
         });
 
         await watchlist.save();

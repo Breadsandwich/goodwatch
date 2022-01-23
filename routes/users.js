@@ -73,20 +73,34 @@ const loginValidators = [
 ];
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-  const users = req.session.auth;
+  const userId = req.params.id;
 
-  if (users) {
-    const userId = req.params.id;
-    const user = await User.findByPk(userId, {
-      include: [Show, Watchlist]
-    })
-    const watchlists = await Watchlist.findAll({ where: { userId } });
+  const user = await User.findByPk(userId, {
+    include: [Watchlist]
+  })
 
-    res.render('user-page', { user, watchlists })
+  let watchlistsArr = [];
+  let showsArr = [];
+
+  const watchlists = await Watchlist.findAll({ where: { userId } });
+
+  if (watchlists) {
+    for (let i = 0; i < watchlists.length; i++) {
+
+      if (watchlists[i].showsList) {
+        for (let k = 0; k < watchlists[i].showsList.length; k++) {
+          let ele = await Show.findByPk(watchlists[i].showsList[k]);
+          showsArr.push(ele);
+        }
+        watchlistsArr.push(showsArr);
+        showsArr = [];
+      }
+
+    }
   }
-  else {
-    res.redirect('/');
-  }
+
+  res.render('user-page', { user, watchlists, watchlistsArr, showsArr });
+  loginUser(req, res, user);
 }));
 
 /* GET users listing. */
@@ -127,13 +141,30 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 router.post('/demo', asyncHandler(async (req, res) => {
 
   const user = await User.findByPk(1, {
-    include: [Show, Watchlist]
+    include: [Watchlist]
   })
+
+  let watchlistsArr = [];
+  let showsArr = [];
 
   const watchlists = await Watchlist.findAll({ where: { userId: 1 } });
 
+  if (watchlists) {
+    for (let i = 0; i < watchlists.length; i++) {
+
+      if (watchlists[i].showsList) {
+        for (let k = 0; k < watchlists[i].showsList.length; k++) {
+          let ele = await Show.findByPk(watchlists[i].showsList[k]);
+          showsArr.push(ele);
+        }
+        watchlistsArr.push(showsArr);
+        showsArr = [];
+      }
+    }
+  }
+
   loginUser(req, res, user);
-  res.render('user-page', { user, watchlists });
+  res.render('user-page', { user, watchlists, watchlistsArr, showsArr });
 }));
 
 
@@ -157,19 +188,18 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async (req, res) =>
     });
     const wantTowatch = await Watchlist.create({
       name: 'Wants to Watch',
-      userId: `${user.id}`
+      userId: `${user.id}`,
+      showsList: []
     });
     const current = await Watchlist.create({
       name: 'Currently Watch',
-      userId: `${user.id}`
+      userId: `${user.id}`,
+      showsList: []
     });
     const watched = await Watchlist.create({
       name: 'Have Watched',
-      userId: `${user.id}`
-    });
-    const haventWatch = await Watchlist.create({
-      name: 'Havent Watched',
-      userId: `${user.id}`
+      userId: `${user.id}`,
+      showsList: []
     });
     loginUser(req, res, user);
     return res.redirect(`/users/${user.id}`);

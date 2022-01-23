@@ -1,4 +1,3 @@
-
 window.addEventListener("load", async (event) => {
     const watchlistUl = document.getElementsByClassName("watchlist-ul")[0];
     const addButton = document.getElementsByClassName("add-watchlist");
@@ -55,6 +54,7 @@ window.addEventListener("load", async (event) => {
             });
         });
     }
+
 
     const textArea = document.getElementById("review-text");
     const ratingMenu = document.getElementById("ratingMenu");

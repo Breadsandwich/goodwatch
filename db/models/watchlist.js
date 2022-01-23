@@ -10,22 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: { model: 'Users' }
     },
-    showId: {
-      type: DataTypes.INTEGER,
-      references: { model: 'Shows' }
+    showsList: {
+      allowNull: false,
+      type: DataTypes.ARRAY(DataTypes.INTEGER)
     }
   }, {});
   Watchlist.associate = function(models) {
-    const columnMapping = {
-      through: 'WatchlistJoin',
-      otherkey: 'showId',
-      foreignKey: 'watchlistId'
-
-    }
-
-    Watchlist.belongsToMany(models.Show, columnMapping)
-    Watchlist.belongsTo(models.User, { foreignKey: 'userId'})
-
+    Watchlist.belongsTo(models.User, { foreignKey: 'userId' });
   };
   return Watchlist;
 };
