@@ -1,0 +1,13 @@
+#table_head{
+   display: flex;
+   justify-content: center;
+}
+
+#table_body{
+    display:grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-column-gap: 200px;
+    justify-content: center;
+    row-gap: 100px;
+}
+
