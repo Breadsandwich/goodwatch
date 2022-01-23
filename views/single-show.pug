@@ -4,6 +4,7 @@ include utils.pug
 
 block content
     script(src="/javascripts/index.js" type="module" defer)
+    p#showId= showId
     table
             thead
                 tr
@@ -15,7 +16,6 @@ block content
             tbody
                 +showTable(show)
                 a(href='/shows/all') Back to Shows
-                a(href=`/shows/${show.id}/reviews`) write a review
     h1= 'Add to a watchlist'
     if user
         ul.watchlist-ul
@@ -25,3 +25,9 @@ block content
     h1= 'Reviews'
     for review in reviews
         p= review.review
+        textarea#review-text(name='userReview' placeholder='write a review')
+        label(for="rating") Rating:
+            select#ratingMenu(name="rating")
+                each rating in [1, 2, 3, 4, 5]
+                    option(value=rating)= rating
+        button#write-button POST
