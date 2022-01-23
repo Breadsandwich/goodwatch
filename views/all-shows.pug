@@ -3,8 +3,8 @@ extends layout.pug
 block content
         link(rel='stylesheet' href='/stylesheets/all-shows.css')
         a(href='/shows/add') Add a Show
-        table#table_head 
-            tbody#table_body 
+        table#table_head
+            tbody#table_body
                 each show in shows
                     tr
                         td
