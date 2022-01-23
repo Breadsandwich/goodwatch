@@ -1,0 +1,24 @@
+#navbar {
+    background-color: #d3ff59;
+    box-shadow: 0px 0px 10px 6px rgba(54, 51, 50, 0.911);
+    opacity: 0.9;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#home-btn{
+    font-weight: bold
+};
+
+.browse-btn{
+    font-weight: bold
+};
+
+.my-watchlist-btn{
+    font-weight: bold;
+}
