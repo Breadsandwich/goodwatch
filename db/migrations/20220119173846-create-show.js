@@ -22,7 +22,7 @@ module.exports = {
       },
       watchStatus: {
         allowNull:false,
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN
       },
       genre: {
         allowNull: false,

@@ -18,6 +18,7 @@ module.exports = {
         refrences: { model: 'Users' }
       },
       showsList: {
+        allowNull: false,
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       createdAt: {
