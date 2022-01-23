@@ -1,17 +1,25 @@
 extends index
 
 block page
-    form(action="/", method="get")
-        button Home
     h1= 'My Watchlists'
+
     ul.watchlist-ul
         for list in watchlists
             li= list.name
     button.add-watchlist add
-    h1= 'My Shows'
-    for show in user.Shows
-        div.user-shows
-            h3= show.name
-            div.show-detail
-                p= `${user.username} ${show.watchStatus}`
-                p= `${show.description}`
+
+    ul
+        for list in watchlistsArr
+            for show in list
+                li
+                    a(href=`/shows/${show.id}`)= show.name
+                li
+                    image(src=`${show.imageSrc}`)
+
+    //- h1= 'My Shows'
+    //- for show in user.Shows
+    //-     div.user-shows
+    //-         h3= show.name
+    //-         div.show-detail
+    //-             p= `${user.username} ${show.watchStatus}`
+    //-             p= `${show.description}`

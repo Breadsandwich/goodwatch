@@ -2,11 +2,12 @@ var express = require('express');
 const {restoreUser} = require('../auth.js')
 const db = require('../db/models');
 const { asyncHandler } = require('./utils');
-const { Show } = db;
+const { Show, Watchlist } = db;
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
+
   const showsDrama = await Show.findAll({
     where: {
       genre: 'Drama'
@@ -37,18 +38,18 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
 
   const showsComedy = await Show.findAll({
     where: {
-      genre: 'comedy'
+      genre: 'Comedy'
     },
     limit: 3
   })
 
   const showsKids = await Show.findAll({
     where: {
-      genre: 'kids'
+      genre: 'Kids'
     },
     limit: 3
   })
-  
+
   res.render('index', { title: 'Welcome to Goodwatch',
     showsDrama,
     showsSciFi,

@@ -5,17 +5,17 @@ include utils.pug
 block content
     script(src="/javascripts/index.js" type="module" defer)
     table
-            thead
-                tr
-                    th Name
-                    th Description
-                    th Overall Rating
-                    th Watch Status
-                    th Genre
-            tbody
-                +showTable(show)
-                a(href='/shows/all') Back to Shows
-                a(href=`/shows/${show.id}/reviews`) write a review
+        thead
+            tr
+                th Name
+                th Description
+                th Overall Rating
+                th Watch Status
+                th Genre
+        tbody
+            +showTable(show)
+            a(href='/shows/all') Back to Shows
+            a(href=`/shows/${show.id}/reviews`) write a review
     h1= 'Add to a watchlist'
     if user
         ul.watchlist-ul

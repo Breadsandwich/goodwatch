@@ -1,36 +1,6 @@
-
 window.addEventListener("load", async (event) => {
     const watchlistUl = document.getElementsByClassName("watchlist-ul")[0];
     const addButton = document.getElementsByClassName("add-watchlist");
-
-
-
-    // console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`);
-
-    const hasWatchedButton = document.getElementById('watch')
-    const wantsToWatchButton = document.getElementById('wantsToWatch')
-    const currentlyButton = document.getElementById('currentlyWatch')
-
-    
-
-    const hasWatchedCount = document.getElementById('hasWatchedCount')
-    const wantsToWatchCount = document.getElementById('wantsToWatchCount')
-    const currentlyCount = document.getElementById('currentlyCount')
-
-    
-
-    hasWatchedButton.addEventListener('click', () =>{
-        hasWatchedCount.innerText++
-    });
-    wantsToWatchButton.addEventListener('click', ()=>{
-        wantsToWatchCount.innerText++
-    });
-    currentlyButton.addEventListener('click', ()=>{
-        currentlyCount.innerText++
-    });
-
-    console.log("hello from javascript!")
-
 
     for (let i = 0; i < addButton.length; i++) {
         addButton[i].addEventListener("click", () => {
@@ -85,4 +55,3 @@ window.addEventListener("load", async (event) => {
         });
     }
 })
-

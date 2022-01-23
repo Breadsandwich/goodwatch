@@ -17,9 +17,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         refrences: { model: 'Users' }
       },
-      showId: {
-        type: Sequelize.INTEGER,
-        refrences: { model: 'Shows' }
+      showsList: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       createdAt: {
         allowNull: false,
