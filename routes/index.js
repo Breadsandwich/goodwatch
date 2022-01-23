@@ -38,14 +38,14 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
 
   const showsComedy = await Show.findAll({
     where: {
-      genre: 'Comedy'
+      genre: 'comedy'
     },
     limit: 3
   })
 
   const showsKids = await Show.findAll({
     where: {
-      genre: 'Kids'
+      genre: 'kids'
     },
     limit: 3
   })
