@@ -54,4 +54,34 @@ window.addEventListener("load", async (event) => {
             });
         });
     }
+
+
+    const textArea = document.getElementById("review-text");
+    const ratingMenu = document.getElementById("ratingMenu");
+    const postButton = document.getElementById("write-button");
+    const showId = document.getElementById("showId").innerText;
+
+    postButton.addEventListener("click", async () => {
+        const review = textArea.value;
+        const rating = ratingMenu.value;
+        console.log(review, rating, showId)
+        const response = await fetch(`/shows/${showId}/reviews-api`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                review,
+                rating
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.message === "success") {
+            console.log(data)
+        } else {
+            console.log(data)
+        }
+    });
 })

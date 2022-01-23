@@ -12,8 +12,7 @@ const reviewsRouter = require('./routes/reviews');
 
 const watchlistsRouter = require('./routes/watchlists');
 
-
-const showsRouter = require('./routes/shows')
+const showsRouter = require('./routes/shows');
 
 const app = express();
 
