@@ -81,7 +81,6 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res)=>{
     res.render('single-show',{
         title: 'Show',
         show,
-        showId,
         reviews,
         user,
         watchlists
@@ -125,43 +124,5 @@ router.post('/search', async(req, res) => {
 
     res.render('shows-search', { shows });
 });
-
-const reviewVal = [
-    check('review')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a review.')
-        .isLength({ max: 255 })
-        .withMessage('Review cannot be longer than 255 charachters.')
-];
-
-router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) => {
-    const { review, rating } = req.body;
-    const showId = req.path.split("/")[1];
-
-    const validatorError = validationResult(req);
-
-    if (validatorError.isEmpty()) {
-        const user = req.session.auth;
-        const userId = user.userId;
-
-        const newReview = await Review.build({
-            review,
-            showId,
-            userId,
-            rating
-        });
-
-        await newReview.save();
-
-        res.json({ message: "success" });
-    } else {
-        const errors = validatorError.array().map((error) => error.msg);
-
-        res.json({
-            message: "fail",
-            errors
-        });
-    }
-}));
 
 module.exports = router

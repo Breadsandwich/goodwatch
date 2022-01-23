@@ -3,35 +3,6 @@ window.addEventListener("load", async (event) => {
     const watchlistUl = document.getElementsByClassName("watchlist-ul")[0];
     const addButton = document.getElementsByClassName("add-watchlist");
 
-
-
-    // console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`);
-
-    const hasWatchedButton = document.getElementById('watch')
-    const wantsToWatchButton = document.getElementById('wantsToWatch')
-    const currentlyButton = document.getElementById('currentlyWatch')
-
-    
-
-    const hasWatchedCount = document.getElementById('hasWatchedCount')
-    const wantsToWatchCount = document.getElementById('wantsToWatchCount')
-    const currentlyCount = document.getElementById('currentlyCount')
-
-    
-
-    hasWatchedButton.addEventListener('click', () =>{
-        hasWatchedCount.innerText++
-    });
-    wantsToWatchButton.addEventListener('click', ()=>{
-        wantsToWatchCount.innerText++
-    });
-    currentlyButton.addEventListener('click', ()=>{
-        currentlyCount.innerText++
-    });
-
-    console.log("hello from javascript!")
-
-
     for (let i = 0; i < addButton.length; i++) {
         addButton[i].addEventListener("click", () => {
             addButton[i].disabled = true;
@@ -84,5 +55,33 @@ window.addEventListener("load", async (event) => {
             });
         });
     }
-})
 
+    const textArea = document.getElementById("review-text");
+    const ratingMenu = document.getElementById("ratingMenu");
+    const postButton = document.getElementById("write-button");
+    const showId = document.getElementById("showId").innerText;
+
+    postButton.addEventListener("click", async () => {
+        const review = textArea.value;
+        const rating = ratingMenu.value;
+        console.log(review, rating, showId)
+        const response = await fetch(`/shows/${showId}/reviews-api`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                review,
+                rating
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.message === "success") {
+            console.log(data)
+        } else {
+            console.log(data)
+        }
+    });
+})
