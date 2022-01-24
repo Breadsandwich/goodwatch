@@ -1,0 +1,92 @@
+#show-details-container {
+    /* border: solid oldlace; */
+    position: relative;
+    left: 25px;
+    top: 75px;
+    display: flex;
+
+
+}
+/* #image-container__single-show {
+
+} */
+
+.show-details{
+    padding-left: 20px;
+    /* border: solid oldlace; */
+}
+
+.title{
+    font-weight: bold;
+    font-size: 20pt;
+}
+
+.show-title-label{
+    font-weight: bold;
+    font-size: 24pt;
+}
+
+.overallRating {
+    font-size: 14pt;
+}
+
+.show-rating-label{
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.genre{
+    font-size: 14pt;
+}
+
+.show-genre-label{
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.description {
+    width: 500px;
+    font-size: 14pt;
+}
+
+.show-summary-label{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+/* ----- add to watchlist  */
+
+#add-to-watchlist-container{
+    /* border: solid oldlace; */
+    position: relative;
+    left: 247px;
+    top: 80px;
+}
+
+.watchlist-secion-text{
+    font-weight: bold;
+}
+
+.watchlist-ul{
+    list-style-type: none;
+}
+
+/* ----- reviews section */
+
+#reviews-section-container{
+    /* border: solid oldlace; */
+    border: rgb(95, 106, 117);
+    background-color: rgb(133, 148, 163);
+    position: relative;
+    left: 247px;
+    top: 95px;
+}
+
+#reviews-container{
+    background-color: rgb(133, 148, 163);
+    position: relative;
+}
+
+.reviews-section-label{
+    font-weight: bold;
+}
