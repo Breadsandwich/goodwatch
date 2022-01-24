@@ -7,44 +7,8 @@ block page
     link(rel='stylesheet' href='/stylesheets/single-show.css')
     p(id='showId' hidden)= showId
 
-    p(id='userId')= userId
+    p(id='userId' )= userId
 
-    table
-        thead
-            tr
-                th Name
-                th Description
-                th Overall Rating
-                th Have Watched
-                th Genre
-        tbody
-            +showTable(show, watchStatus)
-            a(href='/shows/all') Back to Shows
-            a(href=`/shows/${show.id}/reviews`) write a review
-
-    h1= 'Add to a watchlist'
-    if user
-        ul.watchlist-ul
-            for list in watchlists
-                li
-                    a(href=`/watchlists/${list.id}`)= list.name
-                    if list.showsList.includes(showId)
-                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
-                    if !list.showsList.includes(showId)
-                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
-        button.add-watchlist add
-    h1= 'Reviews'
-    div#reviews-container
-        for review in reviews
-            div.single-reviews(userId=review.userId inside=review.review, reviewId=review.id)
-                p= review.review
-                p= review.rating
-    textarea#review-text(name='userReview' placeholder='write a review')
-    label(for="rating") Rating:
-        select#ratingMenu(name="rating")
-            each rating in [1, 2, 3, 4, 5]
-                option(value=rating)= rating
-    button#write-button POST
 
     div(id="show-details-container")
         div(id="image-container__single-show")
@@ -67,7 +31,8 @@ block page
                         if !list.showsList.includes(showId)
                             input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
             button.add-watchlist add
-    div(id="reviews-section-container")
+           
+    div(id="user-reviews-container")
         p(class="reviews-section-label")= 'Reviews'
         textarea#review-text(name='userReview' placeholder='write a review' cols="50" rows="5")
         label(for="rating") Rating:
@@ -75,9 +40,11 @@ block page
                 each rating in [1, 2, 3, 4, 5]
                     option(value=rating)= rating
         button#write-button POST
+        
         div#reviews-container
-            for review in reviews
-                div(id="single-review")
-                    p(class="reviews-display") <span class="show-reviews-display"> Someone said:</span> #{review.review}
-                    p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
+        for review in reviews
+            div.single-reviews(userId=review.userId inside=review.review, reviewId=review.id)
+                p #{review.review}
+                p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
+            
 

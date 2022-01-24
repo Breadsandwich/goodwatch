@@ -95,7 +95,7 @@ window.addEventListener("load", async (event) => {
     postButton.addEventListener("click", async () => {
         const review = textArea.value;
         const rating = ratingMenu.value;
-
+        
 
         const res = await fetch(`/shows/${showId}/reviews-api`, {
             method: 'POST',
@@ -104,7 +104,7 @@ window.addEventListener("load", async (event) => {
             },
             body: JSON.stringify({
                 review,
-                rating
+                rating,
             })
         });
 
@@ -113,12 +113,13 @@ window.addEventListener("load", async (event) => {
 
         if (data.message === "success") {
             console.log(data)
+            
             const editButton = document.createElement("button");
             editButton.innerText = "edit";
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "delete"
             const reviewP = document.createElement("p");
-            reviewP.innerText = review;
+            reviewP.innerText = `${data.username}: ${review}`;
             const ratingP = document.createElement("p");
             ratingP.innerText = rating;
             reviewsContainer.appendChild(reviewP);
@@ -240,20 +241,20 @@ window.addEventListener("load", async (event) => {
         });
     }
 
-    watchStatusButton.addEventListener('change', async () => {
-        const watchStatus = watchStatusButton.checked;
-        checkBox[0].checked = watchStatus;
+    // watchStatusButton.addEventListener('change', async () => {
+    //     const watchStatus = watchStatusButton.checked;
+    //     checkBox[0].checked = watchStatus;
 
-        const res = await fetch(`/shows/${showId}/watchStatus-api`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ watchStatus })
-        });
+    //     const res = await fetch(`/shows/${showId}/watchStatus-api`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ watchStatus })
+    //     });
 
-        watchStatusButton.checked = false;
-    });
+    //     watchStatusButton.checked = false;
+    // });
 
 
 

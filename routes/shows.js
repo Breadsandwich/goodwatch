@@ -78,7 +78,6 @@ router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
     const show = await Show.findByPk(showId);
     const reviews = await Review.findAll({ where: { showId } });
     const watchlists = await Watchlist.findAll({ where: { userId } });
-
     let watchStatus = false;
 
     for (let i = 0; i < watchlists.length; i++) {
@@ -114,7 +113,6 @@ router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) =
 router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) => {
     const { review, rating } = req.body
     const showId = parseInt(req.params.id, 10);
-    // const show = await Show.findByPk(showId)
     const person = req.session.auth;
     const userId = person.userId
 
@@ -124,7 +122,6 @@ router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) 
         userId,
         showId
     })
-    // console.log(showId)
     await reviewPost.save()
     res.redirect(`/shows/${showId}`)
 }));
@@ -162,7 +159,8 @@ router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) =
     if (validatorError.isEmpty()) {
         const user = req.session.auth;
         const userId = user.userId;
-
+        const newUser = await User.findByPk(userId);
+        const username = newUser.username;
         const newReview = await Review.build({
             review,
             showId,
@@ -172,7 +170,7 @@ router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) =
 
         await newReview.save();
 
-        res.json({ message: "success", reviewId: newReview.id });
+        res.json({ message: "success", reviewId: newReview.id , username});
     } else {
         const errors = validatorError.array().map((error) => error.msg);
 
