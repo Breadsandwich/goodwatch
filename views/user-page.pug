@@ -2,17 +2,17 @@ extends index
 
 block page
     h1= 'My Watchlists'
+    div.watch
+        div.watchlist2
+            ul.watchlist-ul
+                for watchlist in watchlists
+                    li
+                        a(href=`/watchlists/${watchlist.id}`)= watchlist.name
+            button.add-watchlist add
 
-    ul.watchlist-ul
-        for list in watchlists
-            li
-                a(href=`/watchlists/${list.id}`)= list.name
-    button.add-watchlist add
-
-    ul
-        for list in watchlistsArr
-            for show in list
-                li
-                    a(href=`/shows/${show.id}`)= show.name
-                li
-                    image(src=`${show.imageSrc}`)
+        div.watchshow2
+            for list in watchlistsArr
+                for show in list
+                    a(class="showName-text" href=href=`/shows/${show.id}`)
+                        img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+                    

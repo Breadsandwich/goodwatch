@@ -3,16 +3,14 @@ extends layout
 include utils.pug
 
 block content
-    +validationErrorSummary(errors)
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    form(action="/users/login", method="post")
-        input(type="hidden", name="_csrf", value=csrfToken)
-        +field('Email: ', 'email')
-        +field('Password: ', 'password')
-        button Login
+
+    link(rel="stylesheet", href="/stylesheets/login.css")
+    #form-container 
+        +validationErrorSummary(errors)
+        form(id='loginForm' action="/users/login", method="post")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            +field('Email: ', 'email')
+            +field('Password: ', 'password')
+            button Login
+            a(href='/') Cancel 
+

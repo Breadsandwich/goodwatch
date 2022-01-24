@@ -2,8 +2,17 @@ extends index
 
 block page
     h1= 'Welcome to your watchlists!'
-    ul.watchlist-ul
-        for watchlist in watchlists
-            li
-                a(href=`/watchlists/${watchlist.id}`)= watchlist.name
-    button.add-watchlist add
+    div.watch
+        div.watchlist
+            ul.watchlist-ul
+                for watchlist in watchlists
+                    li
+                        a(href=`/watchlists/${watchlist.id}`)= watchlist.name
+            button.add-watchlist add
+
+        div.watchshow
+            
+            div.showR
+                for show in shows 
+                    a(class="showName-text" href=href=`/shows/${show.id}`)
+                        img(#show_pic src=`${show.imageSrc}`, alt="show pic")
