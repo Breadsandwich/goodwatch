@@ -5,16 +5,18 @@ include utils.pug
 block content
     script(src="/javascripts/index.js" type="module" defer)
     p(id='showId' hidden)= showId
+    p(id='userId')= userId
+
     table
         thead
             tr
                 th Name
                 th Description
                 th Overall Rating
-                th Watch Status
+                th Have Watched
                 th Genre
         tbody
-            +showTable(show)
+            +showTable(show, watchStatus)
             a(href='/shows/all') Back to Shows
             a(href=`/shows/${show.id}/reviews`) write a review
 
@@ -28,12 +30,11 @@ block content
                         input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
                     if !list.showsList.includes(showId)
                         input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
-
         button.add-watchlist add
     h1= 'Reviews'
     div#reviews-container
         for review in reviews
-            div#single-review
+            div.single-reviews(userId=review.userId inside=review.review, reviewId=review.id)
                 p= review.review
                 p= review.rating
     textarea#review-text(name='userReview' placeholder='write a review')

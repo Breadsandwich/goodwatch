@@ -4,16 +4,24 @@ include utils.pug
 
 block content
     +validationErrorSummary(errors)
+    p= 'hello'
+    p= 'hello'
+    p= 'hello'
+    p= 'hello'
+    p= 'hello'
+    p= 'hello'
+    p= 'hello'
     div(id="add-show-form-container")
         form(action="/shows/add", method="post")
             input(type="hidden", name="_csrf", value=csrfToken)
             +field('Name', 'name')
             +field('Description', 'description', null , 'textarea')
-            +field('Overall Rating', 'overallRating')
-            label(for="watchStatus") Watch Status:
-            select(name="watchStatus")
-                each val in ['Has Watched', 'Wants to Watch', 'Currently Watching']
-                    option(value=val) #{val}
+            //- +field('Overall Rating', 'overallRating')
+            //- label(for="watchStatus") Watch Status:
+            //- select(name="watchStatus")
+            //-     each val in ['Has Watched', 'Wants to Watch', 'Currently Watching']
+            //-         option(value=val) #{val}
             +field('Genre', 'genre')
+            +field('Image Url', 'imageSrc')
             button Add Show
             a(href='/') Cancel

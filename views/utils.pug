@@ -14,15 +14,10 @@ mixin field (labelText, fieldName, fieldValue, fieldType = 'text')
 
 
 mixin showTable(show)
-  tr 
-    td= show.name 
-    td= show.description 
-    td= show.overallRating 
+  tr
+    td= show.name
+    td= show.description
+    td= show.overallRating
     td
-     #watch
-      button Has Watched 
-     #wantsToWatch
-      button Wants to Watch   
-     #currentlyWatch
-      button Currently Watching  
-    td= show.genre 
+      input(type='checkbox' id='watch-status' name=`${show.watchStatus}` checked=watchStatus)
+    td= show.genre

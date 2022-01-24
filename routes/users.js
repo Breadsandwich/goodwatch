@@ -186,18 +186,8 @@ router.post('/signup', csrfProtection, userVal, asyncHandler(async (req, res) =>
       email,
       hashedPassword
     });
-    const wantTowatch = await Watchlist.create({
-      name: 'Wants to Watch',
-      userId: `${user.id}`,
-      showsList: []
-    });
-    const current = await Watchlist.create({
-      name: 'Currently Watch',
-      userId: `${user.id}`,
-      showsList: []
-    });
     const watched = await Watchlist.create({
-      name: 'Have Watched',
+      name: 'Watched',
       userId: `${user.id}`,
       showsList: []
     });

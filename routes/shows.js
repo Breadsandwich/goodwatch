@@ -43,14 +43,15 @@ const showValidator = [
 ]
 //new show post
 router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res) => {
-    const { name, description, overallRating, watchStatus, genre } = req.body
+    const { name, description, genre, imageSrc } = req.body
 
     const show = await Show.build({
         name,
         description,
-        overallRating,
-        watchStatus,
-        genre
+        overallRating: 2.50,
+        watchStatus: false,
+        genre,
+        imageSrc
     });
 
     const validatorErrors = validationResult(req);
@@ -77,6 +78,14 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const show = await Show.findByPk(showId);
     const reviews = await Review.findAll({ where: { showId } });
     const watchlists = await Watchlist.findAll({ where: { userId } });
+    let watchStatus = false;
+
+    for (let i = 0; i < watchlists.length; i++) {
+        if (watchlists[i].showsList.includes(showId)) {
+            watchStatus = true;
+            break;
+        }
+    }
 
     res.render('single-show', {
         title: 'Show',
@@ -84,8 +93,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         showId,
         reviews,
         user,
-        watchlists
+        userId,
+        watchlists,
+        watchStatus
     });
+
 }));
 
 router.get('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) => {
@@ -155,7 +167,7 @@ router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) =
 
         await newReview.save();
 
-        res.json({ message: "success" });
+        res.json({ message: "success", reviewId: newReview.id });
     } else {
         const errors = validatorError.array().map((error) => error.msg);
 
@@ -185,5 +197,63 @@ router.post('/:id(\\d+)/checkbox-api', async (req, res) => {
         showsList: newArray
     });
 });
+
+router.post('/:id(\\d+)/watchStatus-api', async (req, res) => {
+    const { watchStatus } = req.body;
+    const showId = parseInt(req.params.id, 10);
+    const show = await Show.findByPk(showId);
+
+    const watchlist = await Watchlist.findByPk(1);
+    let newArray = Object.assign([], watchlist.showsList);
+
+    if (watchStatus) {
+        newArray.push(showId)
+    } else {
+        const index = watchlist.showsList.indexOf(showId);
+        newArray = watchlist.showsList;
+        newArray.splice(index, 1);
+    }
+
+    await watchlist.update({
+        showsList: newArray,
+    });
+});
+
+router.post('/:id(\\d+)/submit-reviews-api', reviewVal, asyncHandler(async (req, res) => {
+    const { reviewId, review, rating } = req.body;
+    const showId = req.path.split("/")[1];
+    const newReview = await Review.findByPk(reviewId);
+
+    const validatorError = validationResult(req);
+
+    if (validatorError.isEmpty()) {
+        const user = req.session.auth;
+        const userId = user.userId;
+
+        newReview.review = review;
+        newReview.rating = rating;
+
+        await newReview.save();
+
+        res.json({ message: "success" });
+    } else {
+        const errors = validatorError.array().map((error) => error.msg);
+
+        res.json({
+            message: "fail",
+            errors
+        });
+    }
+}));
+
+router.post('/:id(\\d+)/delete-reviews-api', async(req, res) => {
+    const { reviewId } = req.body;
+
+    const review = await Review.findByPk(reviewId);
+
+    await review.destroy();
+});
+
+
 
 module.exports = router
