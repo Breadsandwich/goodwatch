@@ -11,8 +11,11 @@ const router = express.Router()
 
 //get all shows
 router.get('/all', asyncHandler(async (req, res) => {
+    const users = req.session.auth
+    const userId = users.userId
+    const user = await User.findByPk(userId)
     const shows = await Show.findAll({ include: Show.id })
-    res.render('all-shows', { title: 'Shows', shows })
+    res.render('all-shows', { title: 'Shows', shows, user })
 }));
 
 //new show form
