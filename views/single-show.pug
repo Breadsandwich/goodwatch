@@ -5,9 +5,9 @@ include utils.pug
 block page
     script(src="/javascripts/index.js" type="module" defer)
     link(rel='stylesheet' href='/stylesheets/single-show.css')
-    p(id='showId' hidden)= showId
+    //- p(id='showId')= showId
 
-    p(id='userId' )= userId
+    //- p(id='userId')= userId
 
 
     div(id="show-details-container")
@@ -31,7 +31,7 @@ block page
                         if !list.showsList.includes(showId)
                             input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
             button.add-watchlist add
-           
+
     div(id="user-reviews-container")
         p(class="reviews-section-label")= 'Reviews'
         textarea#review-text(name='userReview' placeholder='write a review' cols="50" rows="5")
@@ -40,11 +40,9 @@ block page
                 each rating in [1, 2, 3, 4, 5]
                     option(value=rating)= rating
         button#write-button POST
-        
+
         div#reviews-container
         for review in reviews
             div.single-reviews(userId=review.userId inside=review.review, reviewId=review.id)
                 p #{review.review}
                 p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
-            
-
