@@ -8,9 +8,9 @@ html
         link(rel='stylesheet' href='/stylesheets/layout.css')   
   nav(id="navbar")
     a(id="home-btn" href='/') Home
-      form(id="search-bar" action="/shows/search" method="post")
-        input(type="text", placeholder="search for shows", name="name")
-        button search
+    form(id="search-bar" action="/shows/search" method="post")
+      input(type="text", placeholder="search for shows", name="name")
+      button search
     div(id="users-log-btns")
       if user
         h2(id="nav-username")= `${user.username}`
@@ -25,3 +25,4 @@ html
           button demo
   block content
   body
+

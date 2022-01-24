@@ -1,3 +1,8 @@
+#addshow-btn{
+    position: absolute;
+    top: 100px;
+}
+
 #table_head{
    display: flex;
    justify-content: center;
@@ -10,7 +15,3 @@
     justify-content: center;
     row-gap: 100px;
 }
-
-
-    
-
