@@ -109,7 +109,7 @@ router.post('/api-create', watchlistVal, asyncHandler(async (req, res) => {
 
         await watchlist.save();
 
-        res.json({ message: "success" });
+        res.json({ message: "success", newId: watchlist.id });
     } else {
         const errors = validatorError.array().map((error) => error.msg);
 

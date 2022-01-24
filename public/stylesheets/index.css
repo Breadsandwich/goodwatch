@@ -10,7 +10,6 @@ h1 {
     justify-content: center;
     color: black;
     padding: 5px;
-
 }
 
 a{
@@ -20,4 +19,9 @@ a{
 .main{
     display: flex;
     justify-content: space-between;
+}
+
+#single-review {
+    display: flex;
+    flex-direction: row;
 }
