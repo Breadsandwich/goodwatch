@@ -5,7 +5,8 @@ block page
 
     ul.watchlist-ul
         for list in watchlists
-            li= list.name
+            li
+                a(href=`/watchlists/${list.id}`)= list.name
     button.add-watchlist add
 
     ul
@@ -15,11 +16,3 @@ block page
                     a(href=`/shows/${show.id}`)= show.name
                 li
                     image(src=`${show.imageSrc}`)
-
-    //- h1= 'My Shows'
-    //- for show in user.Shows
-    //-     div.user-shows
-    //-         h3= show.name
-    //-         div.show-detail
-    //-             p= `${user.username} ${show.watchStatus}`
-    //-             p= `${show.description}`
