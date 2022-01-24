@@ -12,42 +12,42 @@ router.get('/', restoreUser, asyncHandler(async(req, res, next)=> {
     where: {
       genre: 'Drama'
     },
-    limit: 3
+    limit: 5
   })
 
   const showsSciFi = await Show.findAll({
     where: {
       genre: 'Sci-Fi'
     },
-    limit: 3
+    limit: 5
   })
 
   const showsFood = await Show.findAll({
     where: {
       genre: 'Food'
     },
-    limit: 3
+    limit: 5
   })
 
   const showsAction = await Show.findAll({
     where: {
       genre: 'Action'
     },
-    limit: 3
+    limit: 5
   })
 
   const showsComedy = await Show.findAll({
     where: {
       genre: 'comedy'
     },
-    limit: 3
+    limit: 5
   })
 
   const showsKids = await Show.findAll({
     where: {
       genre: 'kids'
     },
-    limit: 3
+    limit: 5
   })
 
   res.render('index', { title: 'Welcome to Goodwatch',

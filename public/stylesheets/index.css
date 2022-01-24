@@ -4,6 +4,10 @@ h1 {
     padding: 20px 0 0 0;
     color: black
 }
+h2{
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
 .shows{
     display: flex;
@@ -18,16 +22,24 @@ a{
 }
 .main{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 25px;
+    border: solid black;
+
 }
 
+
 #recommended-container{
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     flex-direction: row;
-
+    
 }
+    
+
+
 
 .genre-container{
 
@@ -37,6 +49,8 @@ a{
 }
 
 .genre-name{
+    display: flex;
+    justify-content: space-around;
     font-size: 25px;
 }
 .showName-text{
