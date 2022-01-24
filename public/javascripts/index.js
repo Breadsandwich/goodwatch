@@ -95,7 +95,7 @@ window.addEventListener("load", async (event) => {
     postButton.addEventListener("click", async () => {
         const review = textArea.value;
         const rating = ratingMenu.value;
-        
+
 
         const res = await fetch(`/shows/${showId}/reviews-api`, {
             method: 'POST',
@@ -113,7 +113,7 @@ window.addEventListener("load", async (event) => {
 
         if (data.message === "success") {
             console.log(data)
-            
+
             const editButton = document.createElement("button");
             editButton.innerText = "edit";
             const deleteButton = document.createElement("button");
@@ -121,7 +121,7 @@ window.addEventListener("load", async (event) => {
             const reviewP = document.createElement("p");
             reviewP.innerText = `${data.username}: ${review}`;
             const ratingP = document.createElement("p");
-            ratingP.innerText = rating;
+            ratingP.innerText = `score: ${rating} / 5`;
             reviewsContainer.appendChild(reviewP);
             reviewsContainer.appendChild(ratingP);
             reviewsContainer.appendChild(editButton);

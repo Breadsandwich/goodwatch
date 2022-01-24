@@ -1,7 +1,7 @@
 body{
     display: flex;
     justify-content: center;
-} 
+}
 
 form{
     border: 2px solid black;
@@ -9,7 +9,7 @@ form{
 }
 
 #form-container{
-    padding-top: 400px;
+    padding-top: 300px;
 
 }
 .form-group{
