@@ -74,7 +74,9 @@ button:hover{
 .watchlist{
     width: 800px;
 }
-
+.watchlist2{
+    width: 200px;
+}
 .watchshow{
     align-items: flex-start;
     display: flex;
