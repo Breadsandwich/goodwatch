@@ -8,8 +8,6 @@ block page
                 each show in shows
                     tr
                         td
-                            img(#show_pic src=`${show.imageSrc}`, alt="show pic")
-                        div#showName
-                            td= show.name
-                            td
-                                a(#showPage href=`/shows/${show.id}`) Show Page
+                            a(class="showName-text" href=href=`/shows/${show.id}`)
+                                img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+                        

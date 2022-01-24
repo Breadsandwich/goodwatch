@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 const { asyncHandler } = require('./utils');
 
 const db = require('../db/models');
-const { Watchlist, User } = db;
+const { Watchlist, User, Show } = db;
 
 const router = express.Router();
 
@@ -31,7 +31,8 @@ router.get('/', asyncHandler(async (req, res) => {
         const userId = users.userId;
         const user = await User.findByPk(userId);
         const watchlists = await Watchlist.findAll({ where: { userId } });
-        res.render('watchlists', { watchlists, user })
+        const shows = await Show.findAll({});
+        res.render('watchlists', { watchlists, user, shows })
     }
     else {
         res.redirect('/');

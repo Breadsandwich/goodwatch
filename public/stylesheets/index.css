@@ -57,3 +57,22 @@ a{
     bottom: 20px;
 
 }
+
+.watch{
+    display: flex;
+}
+
+.watchlist{
+    width: 800px;
+}
+
+.watchshow{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.watchshow > h2{
+    left: 50%;
+}
