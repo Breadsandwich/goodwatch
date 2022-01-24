@@ -53,8 +53,8 @@ const showValidator = [
 ]
 //new show post
 router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res) => {
-    const { name, description, genre, imageSrc } = req.body
-
+    let { name, description, genre, imageSrc } = req.body
+    if(!imageSrc) imageSrc = 'https://www.bkmmarketing.com/hs-fs/hub/149360/file-61596661-jpg/images/color_bars.jpg?width=251&height=169&name=color_bars.jpg'
     const show = await Show.build({
         name,
         description,
@@ -83,14 +83,14 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res)
 }));
 
 router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
-    const user = req.session.auth;
+    const users = req.session.auth;
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
     const reviews = await Review.findAll({ where: { showId } });
-
-    if (user) {
-        const userId = user.userId;
+    if (users) {
+        const userId = users.userId;
         const watchlists = await Watchlist.findAll({ where: { userId } });
+        const user = await User.findByPk(userId)
         let watchStatus = false;
 
         for (let i = 0; i < watchlists.length; i++) {
@@ -116,7 +116,7 @@ router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
             show,
             showId,
             reviews,
-            user,
+            users,
         });
     }
 
