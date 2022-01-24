@@ -21,7 +21,25 @@ a{
     justify-content: space-between;
 }
 
-#single-review {
+#recommended-container{
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: row;
+
+}
+
+.genre-container{
+
+    padding: 20px;
+
+
+}
+
+.genre-name{
+    font-size: 25px;
+}
+.showName-text{
+    bottom: 20px;
+
 }

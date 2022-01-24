@@ -25,33 +25,52 @@ block content
           button demo
          
   block page
-    h1= 'Drama'
-    for show in showsDrama
-        div.shows
-            h3= show.name
-            if user
-              //- button Add
-    h1= 'Sci-Fi'
-    for show in showsSciFi
-        div.shows
-            h3= show.name
-            if user
-              //- button Add
-    h1= 'Food'
-    for show in showsFood
-        div.shows
-            h3= show.name
-            if user
-              //- button Add
-    h1= 'Action'
-    for show in showsAction
-        div.shows
-            h3= show.name
-    h1= 'Comedy'
-    for show in showsComedy
-        div.shows
-            h3= show.name
-    h1= 'Kids'
-    for show in showsKids
-        div.shows
-            h3= show.name
+    div(id="recommended-container")
+      div(class="genre-container")
+      h2(class="genre-name")= 'Drama'
+        for show in showsDrama
+          div(id="show-list")
+            img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+            a(class="showName-text" href=href=`/shows/${show.id}`)= show.name
+      div(class="genre-container")
+      h2(class="genre-name")= 'sci-fi'
+        for show in showsSciFi
+          div(id="show-list")
+            img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+            a(class="showName-text" href=href=`/shows/${show.id}`)= show.name
+      div(class="genre-container")
+      h2(class="genre-name")= 'Food'
+        for show in showsFood
+          div(id="show-list")
+            img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+            a(class="showName-text" href=href=`/shows/${show.id}`)= show.name
+    //- h1= 'Drama'
+    //- for show in showsDrama
+    //-     div.shows
+    //-         h3= show.name
+    //-         if user
+    //-           //- button Add
+    //- h1= 'Sci-Fi'
+    //- for show in showsSciFi
+    //-     div.shows
+    //-         h3= show.name
+    //-         if user
+    //-           //- button Add
+    //- h1= 'Food'
+    //- for show in showsFood
+    //-     div.shows
+    //-         h3= show.name
+    //-         if user
+    //-           //- button Add
+    //- h1= 'Action'
+    //- for show in showsAction
+    //-     div.shows
+    //-         h3= show.name
+    //- h1= 'Comedy'
+    //- for show in showsComedy
+    //-     div.shows
+    //-         h3= show.name
+    //- h1= 'Kids'
+    //- for show in showsKids
+    //-     div.shows
+    //-         h3= show.name
