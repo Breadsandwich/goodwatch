@@ -234,9 +234,9 @@ window.addEventListener("load", async (event) => {
                 status = false;
             }
 
-            if (i === 0) {
-                watchStatusButton.checked = status;
-            }
+            // if (i === 0) {
+            //     watchStatusButton.checked = status;
+            // }
 
             const res = await fetch(`/shows/${showId}/checkbox-api`, {
                 method: 'POST',
