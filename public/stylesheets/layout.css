@@ -22,3 +22,11 @@
 .my-watchlist-btn{
     font-weight: bold;
 }
+
+#userId {
+    color: slategray;
+}
+
+#showId {
+    color: slategray
+}

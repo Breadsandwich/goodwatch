@@ -36,7 +36,7 @@ a{
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    
+
 }
 button{
     border-radius: 5px;
@@ -81,7 +81,7 @@ button:hover{
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .watchshow > h2{

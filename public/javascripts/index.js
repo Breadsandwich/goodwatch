@@ -2,8 +2,10 @@ window.addEventListener("load", async (event) => {
     const watchlistUl = document.getElementsByClassName("watchlist-ul")[0];
     const addButton = document.getElementsByClassName("add-watchlist");
     const watchStatusButton = document.getElementById("watch-status");
-    const showId = document.getElementById("showId").innerText;
-    const userId = document.getElementById("userId").innerText;
+    let showId = document.getElementById("showId");
+    if (showId) showId = showId.innerText;
+    let userId = document.getElementById("userId");
+    if (userId) userId = userId.innerText;
     const singleReviewsDiv = document.getElementsByClassName("single-reviews");
 
     for (let i = 0; i < addButton.length; i++) {
@@ -43,33 +45,35 @@ window.addEventListener("load", async (event) => {
                 const data = await res.json();
 
                 if (data.message === "success") {
-                    const newCheckBox = document.createElement("input");
-                    newCheckBox.type = "checkbox";
-                    newCheckBox.class = "checkbox";
-                    newCheckBox.name = data.newId;
-
-                    newCheckBox.addEventListener("change", async () => {
-                        let status = false;
-                        const name = parseInt(newCheckBox.name, 10);
-
-                        if (newCheckBox.checked) {
-                            status = true;
-                        } else {
-                            status = false;
-                        }
-
-                        const res = await fetch(`/shows/${showId}/checkbox-api`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ name, status })
-                        });
-                    });
-
                     const newLi = document.createElement("li");
                     const newA = document.createElement("a");
-                    newLi.appendChild(newCheckBox);
+
+                    if (showId) {
+                        const newCheckBox = document.createElement("input");
+                        newCheckBox.type = "checkbox";
+                        newCheckBox.class = "checkbox";
+                        newCheckBox.name = data.newId;
+
+                        newCheckBox.addEventListener("change", async () => {
+                            let status = false;
+                            const name = parseInt(newCheckBox.name, 10);
+
+                            if (newCheckBox.checked) {
+                                status = true;
+                            } else {
+                                status = false;
+                            }
+
+                            const res = await fetch(`/shows/${showId}/checkbox-api`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ name, status })
+                            });
+                        });
+                        newLi.appendChild(newCheckBox);
+                    }
                     newA.innerText = newWatchlist;
                     newA.href = `/watchlists/${data.newId}`;
                     newLi.appendChild(newA);
@@ -95,7 +99,7 @@ window.addEventListener("load", async (event) => {
     postButton.addEventListener("click", async () => {
         const review = textArea.value;
         const rating = ratingMenu.value;
-        
+
 
         const res = await fetch(`/shows/${showId}/reviews-api`, {
             method: 'POST',
@@ -113,7 +117,7 @@ window.addEventListener("load", async (event) => {
 
         if (data.message === "success") {
             console.log(data)
-            
+
             const editButton = document.createElement("button");
             editButton.innerText = "edit";
             const deleteButton = document.createElement("button");
