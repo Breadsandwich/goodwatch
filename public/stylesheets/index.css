@@ -10,7 +10,6 @@ h1 {
     justify-content: center;
     color: black;
     padding: 5px;
-
 }
 
 a{
@@ -42,4 +41,5 @@ a{
 }
 .showName-text{
     bottom: 20px;
+
 }

@@ -4,6 +4,7 @@ include utils.pug
 
 block content
     script(src="/javascripts/index.js" type="module" defer)
+    p(id='showId' hidden)= showId
     table
         thead
             tr
@@ -21,14 +22,23 @@ block content
     if user
         ul.watchlist-ul
             for list in watchlists
-                li= list.name
+                li
+                    a(href=`/watchlists/${list.id}`)= list.name
+                    if list.showsList.includes(showId)
+                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
+                    if !list.showsList.includes(showId)
+                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
+
         button.add-watchlist add
     h1= 'Reviews'
-    for review in reviews
-        p= review.review
-        textarea#review-text(name='userReview' placeholder='write a review')
-        label(for="rating") Rating:
-            select#ratingMenu(name="rating")
-                each rating in [1, 2, 3, 4, 5]
-                    option(value=rating)= rating
-        button#write-button POST
+    div#reviews-container
+        for review in reviews
+            div#single-review
+                p= review.review
+                p= review.rating
+    textarea#review-text(name='userReview' placeholder='write a review')
+    label(for="rating") Rating:
+        select#ratingMenu(name="rating")
+            each rating in [1, 2, 3, 4, 5]
+                option(value=rating)= rating
+    button#write-button POST
