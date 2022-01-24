@@ -5,7 +5,7 @@ const { loginUser, logoutUser, restoreUser } = require('../auth.js')
 
 const db = require('../db/models');
 const { csrfProtection, asyncHandler } = require('./utils');
-const { Show, Review, Watchlist } = db
+const { Show, Review, Watchlist, User } = db
 
 const router = express.Router()
 
@@ -70,13 +70,15 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res)
 
 }));
 
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-    const user = req.session.auth;
-    const userId = user.userId;
+router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
+    const users = req.session.auth;
+    const userId = users.userId;
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
     const reviews = await Review.findAll({ where: { showId } });
     const watchlists = await Watchlist.findAll({ where: { userId } });
+    const user = await User.findByPk(userId)
+
 
     res.render('single-show', {
         title: 'Show',
