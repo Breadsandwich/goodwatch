@@ -4,41 +4,39 @@ include utils.pug
 
 block content
     script(src="/javascripts/index.js" type="module" defer)
+    link(rel='stylesheet' href='/stylesheets/single-show.css')
     p(id='showId' hidden)= showId
-    table
-        thead
-            tr
-                th Name
-                th Description
-                th Overall Rating
-                th Watch Status
-                th Genre
-        tbody
-            +showTable(show)
-            a(href='/shows/all') Back to Shows
-            a(href=`/shows/${show.id}/reviews`) write a review
+    div(id="show-details-container")
+        div(id="image-container__single-show")
+            img(id="image_single-show" src=`${show.imageSrc}`, alt="show pic")
+        div(class="show-details")
+            h2(class="title") #{show.name}
+            p(class="overallRating") <span class="show-rating-label">Score:</span> #{show.overallRating}
+            p(class="genre") <span class="show-genre-label">Genre:</span> #{show.genre}
+            p(class="description") <span class="show-summary-label">Summary:</span> #{show.description}
 
-    h1= 'Add to a watchlist'
-    if user
-        ul.watchlist-ul
-            for list in watchlists
-                li
-                    a(href=`/watchlists/${list.id}`)= list.name
-                    if list.showsList.includes(showId)
-                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
-                    if !list.showsList.includes(showId)
-                        input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
-
-        button.add-watchlist add
-    h1= 'Reviews'
-    div#reviews-container
-        for review in reviews
-            div#single-review
-                p= review.review
-                p= review.rating
-    textarea#review-text(name='userReview' placeholder='write a review')
-    label(for="rating") Rating:
-        select#ratingMenu(name="rating")
-            each rating in [1, 2, 3, 4, 5]
-                option(value=rating)= rating
-    button#write-button POST
+    div(id="add-to-watchlist-container")
+        p(class="watchlist-secion-text") Add to Watchlist
+        if user
+            ul.watchlist-ul
+                for list in watchlists
+                    li
+                        a(href=`/watchlists/${list.id}`)= list.name
+                        if list.showsList.includes(showId)
+                            input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
+                        if !list.showsList.includes(showId)
+                            input(type='checkbox' class='checkbox' name=`${list.id}` checked=false)
+            button.add-watchlist add
+    div(id="reviews-section-container")
+        p(class="reviews-section-label")= 'Reviews'
+        textarea#review-text(name='userReview' placeholder='write a review' cols="50" rows="5")
+        label(for="rating") Rating:
+            select#ratingMenu(name="rating")
+                each rating in [1, 2, 3, 4, 5]
+                    option(value=rating)= rating
+        button#write-button POST
+        div#reviews-container
+            for review in reviews
+                div(id="single-review")
+                    p(class="reviews-display") <span class="show-reviews-display"> Someone said:</span> #{review.review}
+                    p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
