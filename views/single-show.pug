@@ -20,7 +20,7 @@ block page
             p(class="watchlist-secion-text") Add to Watchlist
             ul.watchlist-ul
                 for list in watchlists
-                    li
+                    li(class="appended-watchlists")
                         a(href=`/watchlists/${list.id}`)= list.name
                         if list.showsList.includes(showId)
                             input(type='checkbox' class='checkbox' name=`${list.id}` checked=true)
@@ -40,6 +40,5 @@ block page
         div#reviews-container
         for review in reviews
             div.single-reviews(userId=review.userId inside=review.review reviewId=review.id)
-                p #{review.review}
-                //- p(class="review-display") <span class="show-review-display">Review:</span> #{review.review}
+                p <span class="show-review-display">someone said: </span>#{review.review}
                 p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
