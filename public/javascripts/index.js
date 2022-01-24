@@ -1,6 +1,10 @@
 window.addEventListener("load", async (event) => {
     const watchlistUl = document.getElementsByClassName("watchlist-ul")[0];
     const addButton = document.getElementsByClassName("add-watchlist");
+    const watchStatusButton = document.getElementById("watch-status");
+    const showId = document.getElementById("showId").innerText;
+    const userId = document.getElementById("userId").innerText;
+    const singleReviewsDiv = document.getElementsByClassName("single-reviews");
 
     for (let i = 0; i < addButton.length; i++) {
         addButton[i].addEventListener("click", () => {
@@ -39,8 +43,33 @@ window.addEventListener("load", async (event) => {
                 const data = await res.json();
 
                 if (data.message === "success") {
+                    const newCheckBox = document.createElement("input");
+                    newCheckBox.type = "checkbox";
+                    newCheckBox.class = "checkbox";
+                    newCheckBox.name = data.newId;
+
+                    newCheckBox.addEventListener("change", async () => {
+                        let status = false;
+                        const name = parseInt(newCheckBox.name, 10);
+
+                        if (newCheckBox.checked) {
+                            status = true;
+                        } else {
+                            status = false;
+                        }
+
+                        const res = await fetch(`/shows/${showId}/checkbox-api`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ name, status })
+                        });
+                    });
+
                     const newLi = document.createElement("li");
                     const newA = document.createElement("a");
+                    newLi.appendChild(newCheckBox);
                     newA.innerText = newWatchlist;
                     newA.href = `/watchlists/${data.newId}`;
                     newLi.appendChild(newA);
@@ -62,7 +91,6 @@ window.addEventListener("load", async (event) => {
     const ratingMenu = document.getElementById("ratingMenu");
     const postButton = document.getElementById("write-button");
     const reviewsContainer = document.getElementById("reviews-container");
-    const showId = document.getElementById("showId").innerText;
 
     postButton.addEventListener("click", async () => {
         const review = textArea.value;
@@ -85,17 +113,104 @@ window.addEventListener("load", async (event) => {
 
         if (data.message === "success") {
             console.log(data)
+            const editButton = document.createElement("button");
+            editButton.innerText = "edit";
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "delete"
             const reviewP = document.createElement("p");
             reviewP.innerText = review;
             const ratingP = document.createElement("p");
             ratingP.innerText = rating;
             reviewsContainer.appendChild(reviewP);
             reviewsContainer.appendChild(ratingP);
+            reviewsContainer.appendChild(editButton);
+            reviewsContainer.appendChild(deleteButton);
             textArea.value = "";
+
+            editButton.addEventListener("click", async () => {
+                editButton.remove();
+                deleteButton.remove();
+                reviewP.remove();
+                ratingP.remove();
+
+                const editField = document.createElement("textarea");
+                editField.value = reviewP.innerText;
+                const editRatingField = document.createElement("select");
+                for (let i = 1; i < 6; i++) {
+                    const val = document.createElement("option");
+                    val.value = i;
+                    val.innerText = i;
+                    editRatingField.appendChild(val);
+                }
+                const submitEdit = document.createElement("button");
+                submitEdit.innerText = "submit";
+                const cancelEdit = document.createElement("button");
+                cancelEdit.innerText = "cancel"
+
+                reviewsContainer.appendChild(editField);
+                reviewsContainer.appendChild(editRatingField);
+                reviewsContainer.appendChild(submitEdit);
+                reviewsContainer.appendChild(cancelEdit);
+
+                submitEdit.addEventListener("click", async () => {
+                    const reviewId = data.reviewId;
+                    const review = editField.value;
+                    const rating = editRatingField.value;
+
+                    const res = await fetch(`/shows/${showId}/submit-reviews-api`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ reviewId, review, rating })
+                    });
+
+                    editField.remove();
+                    editRatingField.remove();
+                    submitEdit.remove();
+                    cancelEdit.remove();
+
+                    reviewP.innerText = review;
+                    ratingP.innerText = rating;
+                    reviewsContainer.appendChild(reviewP);
+                    reviewsContainer.appendChild(ratingP);
+                    reviewsContainer.appendChild(editButton);
+                    reviewsContainer.appendChild(deleteButton);
+                });
+
+                cancelEdit.addEventListener("click", () => {
+                    editField.remove();
+                    editRatingField.remove();
+                    submitEdit.remove();
+                    cancelEdit.remove();
+
+                    reviewsContainer.appendChild(reviewP);
+                    reviewsContainer.appendChild(ratingP);
+                    reviewsContainer.appendChild(editButton);
+                    reviewsContainer.appendChild(deleteButton);
+                });
+            });
+
+            deleteButton.addEventListener("click", async () => {
+                const reviewId = data.reviewId;
+                reviewP.remove();
+                ratingP.remove();
+                editButton.remove();
+                deleteButton.remove();
+
+                const res = await fetch(`/shows/${showId}/delete-reviews-api`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reviewId })
+                });
+
+            });
+
         } else {
             console.log(data)
         }
-
     });
 
     const checkBox = document.getElementsByClassName("checkbox");
@@ -111,6 +226,10 @@ window.addEventListener("load", async (event) => {
                 status = false;
             }
 
+            if (i === 0) {
+                watchStatusButton.checked = status;
+            }
+
             const res = await fetch(`/shows/${showId}/checkbox-api`, {
                 method: 'POST',
                 headers: {
@@ -120,4 +239,130 @@ window.addEventListener("load", async (event) => {
             });
         });
     }
-})
+
+    watchStatusButton.addEventListener('change', async () => {
+        const watchStatus = watchStatusButton.checked;
+        checkBox[0].checked = watchStatus;
+
+        const res = await fetch(`/shows/${showId}/watchStatus-api`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ watchStatus })
+        });
+
+        watchStatusButton.checked = false;
+    });
+
+
+
+    for (let i = 0; i < singleReviewsDiv.length; i++) {
+        const val = singleReviewsDiv[i].attributes.userId.value;
+        console.log(val, userId)
+        if (val === userId) {
+            const editButton = document.createElement("button");
+            editButton.innerText = "edit";
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "delete"
+
+            singleReviewsDiv[i].appendChild(editButton);
+            singleReviewsDiv[i].appendChild(deleteButton);
+
+            editButton.addEventListener("click", async () => {
+                const currentField = singleReviewsDiv[i].getElementsByTagName("p")[0];
+                const currentText = singleReviewsDiv[i].attributes.inside.value;
+                const currentRatingField = singleReviewsDiv[i].getElementsByTagName("p")[1];
+
+                currentField.remove();
+                currentRatingField.remove();
+                editButton.remove();
+                deleteButton.remove();
+
+                const editTextField = document.createElement("textarea");
+                editTextField.value = currentText;
+
+                const editRatingForm = document.createElement("select");
+                for (let i = 1; i < 6; i++) {
+                    const val = document.createElement("option");
+                    val.value = i;
+                    val.innerText = i;
+                    editRatingForm.appendChild(val);
+                }
+
+                const submitEdit = document.createElement("button");
+                submitEdit.innerText = "submit";
+                const cancelEdit = document.createElement("button");
+                cancelEdit.innerText = "cancel";
+
+                singleReviewsDiv[i].appendChild(editTextField);
+                singleReviewsDiv[i].appendChild(editRatingForm);
+                singleReviewsDiv[i].appendChild(submitEdit);
+                singleReviewsDiv[i].appendChild(cancelEdit);
+
+                submitEdit.addEventListener("click", async () => {
+                    const review = editTextField.value;
+                    const rating = editRatingForm.value;
+                    const reviewId = singleReviewsDiv[i].attributes.reviewId.value;
+
+                    const res = await fetch(`/shows/${showId}/submit-reviews-api`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ reviewId, review, rating })
+                    });
+
+                    const data = await res.json();
+
+                    if (data.message === "success") {
+                        editTextField.remove();
+                        editRatingForm.remove();
+                        submitEdit.remove();
+                        cancelEdit.remove();
+
+                        currentField.innerText = review;
+                        currentRatingField.innerText = rating;
+                        singleReviewsDiv[i].appendChild(currentField)
+                        singleReviewsDiv[i].appendChild(currentRatingField)
+                        singleReviewsDiv[i].appendChild(editButton)
+                        singleReviewsDiv[i].appendChild(deleteButton)
+                    } else {
+                        // TODO HANDLE ERRORS
+                    }
+                });
+
+                cancelEdit.addEventListener("click", () => {
+                    editTextField.remove();
+                    editRatingForm.remove();
+                    submitEdit.remove();
+                    cancelEdit.remove();
+
+                    singleReviewsDiv[i].appendChild(currentField)
+                    singleReviewsDiv[i].appendChild(currentRatingField)
+                    singleReviewsDiv[i].appendChild(editButton)
+                    singleReviewsDiv[i].appendChild(deleteButton)
+                });
+            });
+
+            deleteButton.addEventListener("click", async () => {
+                const reviewId = singleReviewsDiv[i].attributes.reviewId.value;
+                const currentField = singleReviewsDiv[i].getElementsByTagName("p")[0];
+                const currentRatingField = singleReviewsDiv[i].getElementsByTagName("p")[1];
+                currentField.remove();
+                currentRatingField.remove();
+                editButton.remove();
+                deleteButton.remove();
+
+                const res = await fetch(`/shows/${showId}/delete-reviews-api`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reviewId })
+                });
+
+            });
+        }
+    }
+});
