@@ -5,11 +5,23 @@ html
       block head
         title="Goodwatch"
         link(rel='stylesheet' href='/stylesheets/reset.css')
-        link(rel='stylesheet' href='/stylesheets/index.css')
-        a(href='/') Home
-        form(action="/shows/search" method="post")
-          input(type="text", placeholder="search for shows", name="name")
-          button search
+        link(rel='stylesheet' href='/stylesheets/layout.css')   
+  nav(id="navbar")
+    a(id="home-btn" href='/') Home
+      form(id="search-bar" action="/shows/search" method="post")
+        input(type="text", placeholder="search for shows", name="name")
+        button search
+    div(id="users-log-btns")
+      if user
+        h2(id="nav-username")= `${user.username}`
+        form(id="logout-btn" action="/users/logout", method="post")
+          button logout
+          a(class="browse-btn" href='/shows/all') Browse Shows
+          a(class="my-watchlist-btn" href='/watchlists') My Watchlists
+      if !user
+        a(class="login-btn" href='/users/login') Log-in
+        a(class="signup-btn" href='/users/signup') Sign up
+        form(action="/users/demo", method="post")
+          button demo
+  block content
   body
-
-        block content

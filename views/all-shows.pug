@@ -1,23 +1,15 @@
 extends layout.pug
 
 block content
+        link(rel='stylesheet' href='/stylesheets/all-shows.css')
         a(href='/shows/add') Add a Show
-        table
-            thead
-                tr
-                    th
-                    th Name
-                    th Overall Rating
-                    th Watch Status
-                    th Genre
-            tbody
+        table#table_head
+            tbody#table_body
                 each show in shows
                     tr
                         td
-                            img(src=`${show.imageSrc}`, alt="show pic")
-                        td= show.name
-                        td= show.overallRating
-                        td= show.watchStatus
-                        td= show.genre
-                        td
-                            a(href=`/shows/${show.id}`) Show Page
+                            img(#show_pic src=`${show.imageSrc}`, alt="show pic")
+                        div#showName
+                            td= show.name
+                            td
+                                a(#showPage href=`/shows/${show.id}`) Show Page

@@ -1,18 +1,14 @@
 h1 {
-    color: #555555;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 0;
+    color: black
 }
 
 .shows{
     display: flex;
-    flex-direction: column;
-    color: red;
-    border: 2px solid yellow;
-    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
-    padding: 5px;
-}
-
-.nav-bar{
-    display: flex;
+    justify-content: center;
+    color: black;
     padding: 5px;
 }
 
