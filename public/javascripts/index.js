@@ -100,7 +100,6 @@ window.addEventListener("load", async (event) => {
         const review = textArea.value;
         const rating = ratingMenu.value;
 
-
         const res = await fetch(`/shows/${showId}/reviews-api`, {
             method: 'POST',
             headers: {
@@ -112,7 +111,6 @@ window.addEventListener("load", async (event) => {
             })
         });
 
-
         const data = await res.json();
 
         if (data.message === "success") {
@@ -123,7 +121,7 @@ window.addEventListener("load", async (event) => {
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "delete"
             const reviewP = document.createElement("p");
-            reviewP.innerText = `${data.username}: ${review}`;
+            reviewP.innerText = review;
             const ratingP = document.createElement("p");
             ratingP.innerText = rating;
             reviewsContainer.appendChild(reviewP);
@@ -215,6 +213,11 @@ window.addEventListener("load", async (event) => {
 
         } else {
             console.log(data)
+            postButton.disabled = true;
+            const warning = document.createElement("span");
+            warning.innerText = "You need to login!"
+            warning.style.color = "red";
+            reviewsContainer.appendChild(warning);
         }
     });
 
@@ -245,26 +248,9 @@ window.addEventListener("load", async (event) => {
         });
     }
 
-    // watchStatusButton.addEventListener('change', async () => {
-    //     const watchStatus = watchStatusButton.checked;
-    //     checkBox[0].checked = watchStatus;
-
-    //     const res = await fetch(`/shows/${showId}/watchStatus-api`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ watchStatus })
-    //     });
-
-    //     watchStatusButton.checked = false;
-    // });
-
-
-
     for (let i = 0; i < singleReviewsDiv.length; i++) {
         const val = singleReviewsDiv[i].attributes.userId.value;
-        console.log(val, userId)
+
         if (val === userId) {
             const editButton = document.createElement("button");
             editButton.innerText = "edit";

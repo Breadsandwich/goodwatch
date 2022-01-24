@@ -5,10 +5,6 @@ include utils.pug
 block page
     script(src="/javascripts/index.js" type="module" defer)
     link(rel='stylesheet' href='/stylesheets/single-show.css')
-    //- p(id='showId')= showId
-
-    //- p(id='userId')= userId
-
 
     div(id="show-details-container")
         div(id="image-container__single-show")
@@ -20,8 +16,8 @@ block page
             p(class="description") <span class="show-summary-label">Summary:</span> #{show.description}
 
     div(id="add-to-watchlist-container")
-        p(class="watchlist-secion-text") Add to Watchlist
         if user
+            p(class="watchlist-secion-text") Add to Watchlist
             ul.watchlist-ul
                 for list in watchlists
                     li
@@ -43,6 +39,7 @@ block page
 
         div#reviews-container
         for review in reviews
-            div.single-reviews(userId=review.userId inside=review.review, reviewId=review.id)
+            div.single-reviews(userId=review.userId inside=review.review reviewId=review.id)
                 p #{review.review}
+                //- p(class="review-display") <span class="show-review-display">Review:</span> #{review.review}
                 p(class="rating-display") <span class="show-rating-display">Score:</span> #{review.rating} / 5
