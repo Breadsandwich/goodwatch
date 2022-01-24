@@ -1,0 +1,30 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#signUpForm{
+    display:flex;
+    justify-content: center;
+    padding-top:300px ;
+    /* align-items: center; */
+}
+.form-group{
+    padding:10px 10px;
+    
+}
+ form{
+    border: 2px solid black;
+    border-radius: 10px;
+} 
+button{
+    border-radius: 5px;
+}
+button:hover{
+    border-color: chocolate;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+a{
+    text-decoration: none;
+    padding-left: 10px;
+}
