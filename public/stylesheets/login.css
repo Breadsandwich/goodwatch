@@ -1,22 +1,20 @@
 body{
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-#signUpForm{
-    display:flex;
-    justify-content: center;
-    padding-top:300px ;
-    /* align-items: center; */
-}
-.form-group{
-    padding:10px 10px;
-    
-}
- form{
+} 
+
+form{
     border: 2px solid black;
     border-radius: 10px;
-} 
+}
+
+#form-container{
+    padding-top: 400px;
+
+}
+.form-group{
+    padding: 10px;
+}
 button{
     border-radius: 5px;
 }
