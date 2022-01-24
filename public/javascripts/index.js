@@ -40,7 +40,10 @@ window.addEventListener("load", async (event) => {
 
                 if (data.message === "success") {
                     const newLi = document.createElement("li");
-                    newLi.innerText = newWatchlist;
+                    const newA = document.createElement("a");
+                    newA.innerText = newWatchlist;
+                    newA.href = `/watchlists/${data.newId}`;
+                    newLi.appendChild(newA);
                     watchlistUl.appendChild(newLi);
                     newInput.remove();
                     submitButton.remove();
@@ -55,17 +58,18 @@ window.addEventListener("load", async (event) => {
         });
     }
 
-
     const textArea = document.getElementById("review-text");
     const ratingMenu = document.getElementById("ratingMenu");
     const postButton = document.getElementById("write-button");
+    const reviewsContainer = document.getElementById("reviews-container");
     const showId = document.getElementById("showId").innerText;
 
     postButton.addEventListener("click", async () => {
         const review = textArea.value;
         const rating = ratingMenu.value;
-        console.log(review, rating, showId)
-        const response = await fetch(`/shows/${showId}/reviews-api`, {
+
+
+        const res = await fetch(`/shows/${showId}/reviews-api`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -76,12 +80,44 @@ window.addEventListener("load", async (event) => {
             })
         });
 
-        const data = await response.json();
+
+        const data = await res.json();
 
         if (data.message === "success") {
             console.log(data)
+            const reviewP = document.createElement("p");
+            reviewP.innerText = review;
+            const ratingP = document.createElement("p");
+            ratingP.innerText = rating;
+            reviewsContainer.appendChild(reviewP);
+            reviewsContainer.appendChild(ratingP);
+            textArea.value = "";
         } else {
             console.log(data)
         }
+
     });
+
+    const checkBox = document.getElementsByClassName("checkbox");
+
+    for (let i = 0; i < checkBox.length; i++) {
+        checkBox[i].addEventListener("change", async () => {
+            let status = false;
+            const name = parseInt(checkBox[i].name, 10);
+
+            if (checkBox[i].checked) {
+                status = true;
+            } else {
+                status = false;
+            }
+
+            const res = await fetch(`/shows/${showId}/checkbox-api`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, status })
+            });
+        });
+    }
 })

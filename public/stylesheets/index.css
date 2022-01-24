@@ -9,7 +9,6 @@ h1 {
     border: 2px solid yellow;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
     padding: 5px;
-
 }
 
 .nav-bar{
@@ -24,4 +23,9 @@ a{
 .main{
     display: flex;
     justify-content: space-between;
+}
+
+#single-review {
+    display: flex;
+    flex-direction: row;
 }

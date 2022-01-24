@@ -10,7 +10,8 @@ block content
   div.main
     h1= title|| 'GoodWatch'
     if user
-      h1= `Hello ${user.username}`
+      h1
+        a(href=`/users/${user.id}`)= `Hello ${user.username}`
       form(action="/users/logout", method="post")
           button logout
           a(href='/shows/all') Shows Page
