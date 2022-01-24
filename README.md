@@ -39,7 +39,23 @@ Goodwatch is inspired by GoodReads but with a spin-up where users can write revi
 # Live site
 https://goodwatch-app.herokuapp.com/
 
+## Browse Shows
+![browse]: ./images/browse-shows.png
+
+## Post, edit, delete review
+![edit-review]
+
+## Reviews
+![reviews]
+
+## database
+![database]
+
 # Wiki Docs
 https://github.com/Breadsandwich/goodwatch/wiki
 
-# 
+
+[edit-review]: ./images/goodwatch-edit-review.png
+[browse]: ./images/browse-shows.png
+[reviews]: ./images/example-show-page.png
+[database]: ./images/db_diagram.png
