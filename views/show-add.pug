@@ -4,13 +4,6 @@ include utils.pug
 
 block content
     +validationErrorSummary(errors)
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
-    p= 'hello'
     div(id="add-show-form-container")
         form(action="/shows/add", method="post")
             input(type="hidden", name="_csrf", value=csrfToken)

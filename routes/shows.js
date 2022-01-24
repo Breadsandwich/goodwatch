@@ -17,10 +17,20 @@ router.get('/all', asyncHandler(async (req, res) => {
 
 //new show form
 router.get('/add', csrfProtection, (req, res) => {
-    res.render('show-add', {
-        title: 'Add Show',
-        csrfToken: req.csrfToken()
-    });
+    const user = req.session.auth;
+
+    if (user) {
+        res.render('show-add', {
+            title: 'Add Show',
+            csrfToken: req.csrfToken()
+        });
+    } else {
+        res.render('user-login', {
+            title: 'Login',
+            csrfToken: req.csrfToken(),
+          });
+    }
+
 });
 
 const showValidator = [
@@ -57,6 +67,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res)
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
+        console.log("SUCCESS")
         await show.save()
         res.redirect('/shows/all')
     } else {
@@ -72,35 +83,43 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res)
 }));
 
 router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
-    const users = req.session.auth;
-    const userId = users.userId;
+    const user = req.session.auth;
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
     const reviews = await Review.findAll({ where: { showId } });
-    const watchlists = await Watchlist.findAll({ where: { userId } });
-    let watchStatus = false;
 
-    for (let i = 0; i < watchlists.length; i++) {
-        if (watchlists[i].showsList.includes(showId)) {
-            watchStatus = true;
-            break;
+    if (user) {
+        const userId = user.userId;
+        const watchlists = await Watchlist.findAll({ where: { userId } });
+        let watchStatus = false;
+
+        for (let i = 0; i < watchlists.length; i++) {
+            if (watchlists[i].showsList.includes(showId)) {
+                watchStatus = true;
+                break;
+            }
         }
+
+        res.render('single-show', {
+            title: 'Show',
+            show,
+            showId,
+            reviews,
+            user,
+            userId,
+            watchlists,
+            watchStatus
+        });
+    } else {
+        res.render('single-show', {
+            title: 'Show',
+            show,
+            showId,
+            reviews,
+            user,
+        });
     }
 
-    const user = await User.findByPk(userId)
-
-
-
-    res.render('single-show', {
-        title: 'Show',
-        show,
-        showId,
-        reviews,
-        user,
-        userId,
-        watchlists,
-        watchStatus
-    });
 
 }));
 
@@ -151,34 +170,44 @@ const reviewVal = [
 ];
 
 router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) => {
-    const { review, rating } = req.body;
-    const showId = req.path.split("/")[1];
+    const user = req.session.auth;
 
-    const validatorError = validationResult(req);
+    if (user) {
+        const { review, rating } = req.body;
+        const showId = req.path.split("/")[1];
 
-    if (validatorError.isEmpty()) {
-        const user = req.session.auth;
-        const userId = user.userId;
-        const newUser = await User.findByPk(userId);
-        const username = newUser.username;
-        const newReview = await Review.build({
-            review,
-            showId,
-            userId,
-            rating
-        });
+        const validatorError = validationResult(req);
 
-        await newReview.save();
+        if (validatorError.isEmpty()) {
+            const userId = user.userId;
+            const newUser = await User.findByPk(userId);
+            const username = newUser.username;
+            const newReview = await Review.build({
+                review,
+                showId,
+                userId,
+                rating
+            });
 
-        res.json({ message: "success", reviewId: newReview.id , username});
+            await newReview.save();
+
+            res.json({ message: "success", reviewId: newReview.id , username});
+        } else {
+            const errors = validatorError.array().map((error) => error.msg);
+
+            res.json({
+                message: "fail",
+                errors
+            });
+        }
     } else {
-        const errors = validatorError.array().map((error) => error.msg);
-
-        res.json({
-            message: "fail",
-            errors
-        });
+        res.json({ message: "fail" });
+        // res.render('user-login', {
+        //     title: 'Login',
+        //     csrfToken: req.csrfToken(),
+        //   })
     }
+
 }));
 
 router.post('/:id(\\d+)/checkbox-api', async (req, res) => {
