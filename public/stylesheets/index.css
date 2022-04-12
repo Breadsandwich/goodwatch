@@ -30,7 +30,7 @@ a{
     justify-content: space-around;
     align-items: center;
     padding-bottom: 25px;
-    border: solid black;
+    /* border: solid black; */
 
 }
 
@@ -41,13 +41,18 @@ a{
 }
 
 button{
-    border-radius: 5px;
-    padding: 0 10px
+    margin-left: 2px;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: #baac9a;
+    border: #e5e5e5 solid 1px;
+    border-radius: 5%;
 
 }
 button:hover{
-    border-color: chocolate;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #cecece;
+    border-color: white;
 }
 
 
