@@ -25,4 +25,38 @@ button:hover{
 a{
     text-decoration: none;
     padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+#loginForm {
+    display:flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.auth_action_btns{
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    right: 30%;
+
+}
+
+.cancel_btn{
+    border: black solid 0.1px;
+    margin: 0;
+
+}
+
+.cancel_btn:hover{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: white solid 0.1px;
+    margin-left: 3px;
+
 }

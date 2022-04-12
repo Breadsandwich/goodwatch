@@ -29,6 +29,7 @@ button:hover{
 a{
     text-decoration: none;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .auth_action_btns{
@@ -46,5 +47,11 @@ a{
 }
 
 .cancel_btn:hover{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: white solid 0.1px;
+    margin-left: 3px;
+
 }
