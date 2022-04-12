@@ -31,7 +31,7 @@ router.get('/add', csrfProtection, (req, res) => {
         res.render('user-login', {
             title: 'Login',
             csrfToken: req.csrfToken(),
-          });
+        });
     }
 
 });
@@ -57,7 +57,7 @@ const showValidator = [
 //new show post
 router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res) => {
     let { name, description, genre, imageSrc } = req.body
-    if(!imageSrc) imageSrc = 'https://www.bkmmarketing.com/hs-fs/hub/149360/file-61596661-jpg/images/color_bars.jpg?width=251&height=169&name=color_bars.jpg'
+    if (!imageSrc) imageSrc = 'https://www.bkmmarketing.com/hs-fs/hub/149360/file-61596661-jpg/images/color_bars.jpg?width=251&height=169&name=color_bars.jpg'
     const show = await Show.build({
         name,
         description,
@@ -85,7 +85,7 @@ router.post('/add', csrfProtection, showValidator, asyncHandler(async (req, res)
 
 }));
 
-router.get('/:id(\\d+)',restoreUser, asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', restoreUser, asyncHandler(async (req, res) => {
     const users = req.session.auth;
     const showId = parseInt(req.params.id, 10);
     const show = await Show.findByPk(showId);
@@ -194,7 +194,7 @@ router.post('/:id(\\d+)/reviews-api', reviewVal, asyncHandler(async (req, res) =
 
             await newReview.save();
 
-            res.json({ message: "success", reviewId: newReview.id , username});
+            res.json({ message: "success", reviewId: newReview.id, username });
         } else {
             const errors = validatorError.array().map((error) => error.msg);
 
@@ -281,7 +281,7 @@ router.post('/:id(\\d+)/submit-reviews-api', reviewVal, asyncHandler(async (req,
     }
 }));
 
-router.post('/:id(\\d+)/delete-reviews-api', async(req, res) => {
+router.post('/:id(\\d+)/delete-reviews-api', async (req, res) => {
     const { reviewId } = req.body;
 
     const review = await Review.findByPk(reviewId);

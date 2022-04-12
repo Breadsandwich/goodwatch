@@ -44,39 +44,39 @@ block content
 
   block page
     div(id="recommended-container")
-      div(class="genre-container")
-      h2(class="genre-name")= 'Drama'
+      div(class="genre-container") Drama
+      h2(class="genre-name")
         for show in showsDrama
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)
-      div(class="genre-container")
-      h2(class="genre-name")= 'Sci-Fi'
+      div(class="genre-container") Sci-Fi
+      h2(class="genre-name") 
         for show in showsSciFi
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)
-      div(class="genre-container")
-      h2(class="genre-name")= 'Food'
+      div(class="genre-container") Food
+      h2(class="genre-name") 
         for show in showsFood
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)
-      div(class="genre-container")
-      h2(class="genre-name")= 'Action'
+      div(class="genre-container") Action
+      h2(class="genre-name") 
         for show in showsAction
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)
-      div(class="genre-container")
-      h2(class="genre-name")= 'Comedy'
+      div(class="genre-container") Comedy
+      h2(class="genre-name") 
         for show in showsComedy
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)
-      div(class="genre-container")
-      h2(class="genre-name")= 'Kids'
+      div(class="genre-container") Kids
+      h2(class="genre-name") 
         for show in showsKids
           div(id="show-list")
-            a(class="showName-text" href=href=`/shows/${show.id}`)
+            a(href=href=`/shows/${show.id}`)
               img(#show_pic src=`${show.imageSrc}`, alt="show pic" href=`/shows/${show.id}`)

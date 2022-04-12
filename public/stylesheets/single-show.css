@@ -1,18 +1,14 @@
 #show-details-container {
-    /* border: solid oldlace; */
     background-color: rgb(133, 148, 163);
     position: relative;
     left: 25px;
     top: 75px;
     display: flex;
-
-
 }
 
 .show-details{
     padding-left: 20px;
     background-color: rgb(133, 148, 163);
-    /* border: solid oldlace; */
 }
 
 .title{
