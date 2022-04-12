@@ -5,14 +5,14 @@ include utils.pug
 block content
 
     link(rel='stylesheet' href='/stylesheets/signup.css')
-    #signUpForm 
+    #signUpForm
         +validationErrorSummary(errors)
-        form(action="/users/signup", method="post")
+        form(action="/users/signup", method="post" id="signUpForm")
             input(type="hidden", name="_csrf", value=csrfToken)
             +field('Username: ', 'username')
             +field('Email: ', 'email')
-            +field('Password: ', 'password')
-            +field('Confirm Password: ', 'confirmPassword')
-            button submit 
-            a(href='/') Cancel
-
+            +field('Password: ', 'password', password, 'password')
+            +field('Confirm Password: ', 'confirmPassword', password, 'password')
+            div(class="auth_action_btns")
+                button submit
+                a(href='/' class="cancel_btn") Cancel
