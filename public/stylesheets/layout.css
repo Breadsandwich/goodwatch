@@ -11,6 +11,10 @@
     margin: auto;
 }
 
+#navbar_div {
+    background-color: #f4f1ea;
+}
+
 #home-btn{
     font-weight: bold
 };
@@ -30,3 +34,22 @@
 #showId {
     color: slategray
 }
+
+
+#search_input {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#search_input::after{
+    border: white 1px solid;
+}
+
+.nav_link{
+    font-size: 20px;
+}
+
+/* #logout_btn{
+    padding: 5px;
+    background-color: transparent;
+} */
