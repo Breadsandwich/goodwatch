@@ -35,23 +35,21 @@ a{
 .auth_action_btns{
     display: flex;
     position: relative;
-    justify-content: space-around;
+    justify-content: space-between;
     right: 30%;
 
 }
 
+.auth_action_btns > button {
+    cursor: pointer;
+}
+
 .cancel_btn{
-    border: black solid 0.1px;
     margin: 0;
 
 }
 
 .cancel_btn:hover{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: white solid 0.1px;
-    margin-left: 3px;
+    font-weight: bold;
 
 }

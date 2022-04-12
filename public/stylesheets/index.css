@@ -112,3 +112,11 @@ button:hover{
 .error_msg > li {
     color: red;
 }
+
+
+.auth_nav{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: #f4f1ea;
+}
