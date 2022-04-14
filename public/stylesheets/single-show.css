@@ -1,58 +1,66 @@
 #show-details-container {
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     position: relative;
-    left: 25px;
+    left: 5%;
     top: 75px;
     display: flex;
+    justify-content: center;
+    width: 40vw;
+    border-radius: 10px;
+}
+
+#image-container__single-show{
+    display: flex;
+    align-items: center;
 }
 
 .show-details{
     padding-left: 20px;
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
 }
 
 .title{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
     font-size: 20pt;
 }
 
 .show-title-label{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
     font-size: 24pt;
 }
 
 .overallRating {
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-size: 14pt;
 }
 
 .show-rating-label{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
     font-size: 14pt;
 }
 
 .genre{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-size: 14pt;
 }
 
 .show-genre-label{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
     font-size: 14pt;
 }
 
 .description {
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     width: 500px;
     font-size: 14pt;
 }
 
 .show-summary-label{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
     font-size: 16pt;
 }
@@ -60,57 +68,57 @@
 /* ----- add to watchlist  */
 
 #add-to-watchlist-container{
-    background-color: rgb(133, 148, 163);
+    /* background-color: rgb(217, 223, 230); */
     /* border: solid oldlace; */
     position: relative;
-    left: 247px;
+    left: 5%;
     top: 59px;
+    width: 20vw;
 }
 
 .watchlist-secion-text{
-    background-color: rgb(133, 148, 163);
     font-weight: bold;
 }
 
 .watchlist-ul{
-    background-color: rgb(133, 148, 163);
     list-style-type: none;
 }
 
-.appended-watchlists{
-    background-color: rgb(133, 148, 163);
-}
 
 /* ----- reviews section */
 
 #user-reviews-container{
     /* border: solid oldlace; */
     padding-top: 5px;
-    border: rgb(95, 106, 117);
-    background-color: rgb(133, 148, 163);
+    border: rgb(217, 223, 230);
+    background-color: rgb(217, 223, 230);
     position: relative;
-    left: 247px;
+    left: 5%;
     top: 59px;
 }
 
 #reviews-container{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     position: relative;
 }
 
 .reviews-section-label{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
     font-weight: bold;
 }
 
 .show-review-display{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
 }
 
 .show-rating-display{
-    background-color: rgb(133, 148, 163);
+    background-color: rgb(217, 223, 230);
+}
+
+.single-reviews{
+    border: 2px red;
 }
 
 #review-textarea-box{
-    left: 50px;
+    left: 5%;
 }

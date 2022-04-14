@@ -8,10 +8,6 @@ a {
   color: black
 }
 
-* {
-  box-sizing: border-box;
-}
-
 h1, h2, h3, h4, h5, h6, ol, li, ul, span,
 body, header, nav {
   font-size: 1rem;
