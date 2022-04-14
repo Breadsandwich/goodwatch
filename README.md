@@ -1,6 +1,9 @@
 ## Goodwatch
 Goodwatch is inspired by GoodReads but with a spin-up where users can write reviews and post discussions on shows. On the website you can leave discussions about a show and rate it.
 
+# Live site
+https://goodwatch-app.herokuapp.com/
+
 # Features
  Logged in users can :
   - add, edit, and delete watchlists
@@ -36,14 +39,13 @@ Goodwatch is inspired by GoodReads but with a spin-up where users can write revi
 * bcryptjs
 * Postgresql
 
-# Live site
-https://goodwatch-app.herokuapp.com/
+
+## Splashpage
+![splashpage](./images/splashpage.PNG)
 
 ## Browse Shows
 ![browse](./images/browse-shows.PNG)
 
-## Post, edit, delete review
-![edit-review](./images/goodwatch-edit-review.png)
 
 ## Reviews
 ![reviews](./images/example-show-page.PNG)
