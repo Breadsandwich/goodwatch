@@ -1,4 +1,5 @@
 #show-details-container {
+
     background-color: rgb(217, 223, 230);
     position: relative;
     left: 5%;
@@ -12,11 +13,13 @@
 #image-container__single-show{
     display: flex;
     align-items: center;
+
 }
 
 .show-details{
     padding-left: 20px;
     background-color: rgb(217, 223, 230);
+
 }
 
 .title{
@@ -68,8 +71,6 @@
 /* ----- add to watchlist  */
 
 #add-to-watchlist-container{
-    /* background-color: rgb(217, 223, 230); */
-    /* border: solid oldlace; */
     position: relative;
     left: 5%;
     top: 59px;
@@ -88,7 +89,6 @@
 /* ----- reviews section */
 
 #user-reviews-container{
-    /* border: solid oldlace; */
     padding-top: 5px;
     border: rgb(217, 223, 230);
     background-color: rgb(217, 223, 230);
