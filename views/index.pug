@@ -29,6 +29,7 @@ block content
       h1
         //- a(href=`/users/${user.id}`)= `Hello ${user.username}`
       form(action="/users/logout", method="post")
+          a(href='/shows/add' class="nav_link") Add Show
           a(href='/shows/all' class="nav_link") Explore
           a(href='/watchlists' class="nav_link") WatchLists
           button(id="logout_btn") logout
